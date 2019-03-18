@@ -1,3 +1,9 @@
+---
+title: typescript学习笔记
+date: 2019-03-15 09:48:37
+tags: typescript
+---
+
 ### 基础类型
 
  - 布尔值 
