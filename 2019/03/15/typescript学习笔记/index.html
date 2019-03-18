@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typescript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础类型 布尔值  数字（number）  字符串（string）    数组  在元素类型后面接上[],表示由此元素组成一个数组let list:number[] = [1, 2, 3]; 使用数组泛型let list:Array\&amp;lt;number&amp;gt; = [1, 2, 3]   元组   12let x: [string: number];x = [&amp;apos;hello&amp;apos;,">
+<meta name="keywords" content="typescript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="typescript学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/typescript学习笔记/index.html">
+<meta property="og:site_name" content="KIRIN&#39;S blog">
+<meta property="og:description" content="基础类型 布尔值  数字（number）  字符串（string）    数组  在元素类型后面接上[],表示由此元素组成一个数组let list:number[] = [1, 2, 3]; 使用数组泛型let list:Array\&amp;lt;number&amp;gt; = [1, 2, 3]   元组   12let x: [string: number];x = [&amp;apos;hello&amp;apos;,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-18T02:54:20.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="typescript学习笔记">
+<meta name="twitter:description" content="基础类型 布尔值  数字（number）  字符串（string）    数组  在元素类型后面接上[],表示由此元素组成一个数组let list:number[] = [1, 2, 3]; 使用数组泛型let list:Array\&amp;lt;number&amp;gt; = [1, 2, 3]   元组   12let x: [string: number];x = [&amp;apos;hello&amp;apos;,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/typescript学习笔记/">
+
+
+
+
+
+  <title>typescript学习笔记 | KIRIN'S blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KIRIN'S blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/typescript学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KIRIN">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KIRIN'S blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">typescript学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T09:48:37+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><ul>
+<li>布尔值 </li>
+<li>数字（number） </li>
+<li>字符串（string） </li>
+</ul>
+<ul>
+<li><p>数组</p>
+<ol>
+<li>在元素类型后面接上[],表示由此元素组成一个数组<br><code>let list:number[] = [1, 2, 3];</code></li>
+<li>使用数组泛型<br><code>let list:Array\&lt;number&gt; = [1, 2, 3]</code></li>
+</ol>
+</li>
+<li><p>元组  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x: [string: number];</span><br><span class="line">x = [&apos;hello&apos;, 10];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举<br><code>enmu Color { Red, Green, Blue}
+let c: Color = Color.Green</code></p>
+</li>
+<li>Any 类型检查器不对这些值进行检查让他们直接通过编译器的检查<br><code>let notSure: any = 4;</code></li>
+<li>void 表示没有任何类型，当一个函数没有返回值时。</li>
+<li>Null和 Undefined</li>
+<li><p>Never 类型表示的是那些永不存在的值的类型。例如never类型时那些总是会抛出异常或根本没有返回值的函数表达式或箭头函数表达式的返回值类型  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 返回never的函数必须存在无法达到的终点</span><br><span class="line">function error(message: string): never &#123;</span><br><span class="line">    throw new Error(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 推断的返回值类型为never</span><br><span class="line">function fail() &#123;</span><br><span class="line">    return error(&quot;Something failed&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>object表示非原始类型，也就是除number，string， boolean， symbol， null或undefined之外的类型</p>
+</li>
+<li>类型断言(好比l类型转换，但是不进行特殊的数据检查h和解构)  </li>
+</ul>
+<ol>
+<li>“尖括号语法”<br><code>let strLength: number = (\&lt;string\&gt;someValue).length</code>  </li>
+<li>as语法<br><code>let strLength: number = (someValue as string).length;</code></li>
+</ol>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><ul>
+<li>基本类型  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface LabelledValue &#123;</span><br><span class="line">  label: string</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">- 可选属性  </span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line">interface LabelledValue &#123;</span><br><span class="line">  color?: string;</span><br><span class="line">  width?: number;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>只读属性  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface Point &#123;</span><br><span class="line">  readonly x: number;</span><br><span class="line">  readonly y: number;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">let p1: Point = &#123; x: 10, y: 20&#125;;</span><br><span class="line">p1.x = 5 //error,一旦赋值就不可改变</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数类型<br>为了使用接口表示函数类型，我们给接口定义一个调用签名。只有参数列表和返回值类型的函数定义  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface SearchFunc &#123;</span><br><span class="line">  (source: string, subString: string): boolean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let mySearch: SearchFunc;</span><br><span class="line">mySearch = function(source: string, subString: string) &#123;</span><br><span class="line">  let result = source.search(subString);</span><br><span class="line">  return result &gt; -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可索引的类型<br>可索引类型具有一个索引签名，它描述了对象索引的类型，还有相应的索引返回值类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface StringArray &#123;</span><br><span class="line">  [index: number]: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let myArray: StringArray;</span><br><span class="line">myArray = [&quot;Bob&quot;, &quot;Fred&quot;];</span><br><span class="line"></span><br><span class="line">let myStr: string = myArray[0];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继承接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">    color: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Square extends Shape &#123;</span><br><span class="line">    sideLength: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let square = &lt;Square&gt;&#123;&#125;;</span><br><span class="line">square.color = &quot;blue&quot;;</span><br><span class="line">square.sideLength = 10;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接口继承类<br>当接口继承了一个类类型时，它会继承类的成员但不包括其实现。就好像接口声明了所有类中存在的成员，但并没有提供具体实现一样。<strong>这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现（implement)</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Control &#123;</span><br><span class="line">    private state: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface SelectableControl extends Control &#123;</span><br><span class="line">    select(): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Button extends Control implements SelectableControl &#123;</span><br><span class="line">    select() &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TextBox extends Control &#123;</span><br><span class="line">    select() &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 错误：“Image”类型缺少“state”属性。</span><br><span class="line">class Image implements SelectableControl &#123;</span><br><span class="line">    select() &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><ul>
+<li>类的继承<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    constructor(theName: string) &#123; this.name = theName; &#125;</span><br><span class="line">    move(distanceInMeters: number = 0) &#123;</span><br><span class="line">        console.log(`$&#123;this.name&#125; moved $&#123;distanceInMeters&#125;m.`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Snake extends Animal &#123;</span><br><span class="line">    constructor(name: string) &#123; super(name); &#125;</span><br><span class="line">    move(distanceInMeters = 5) &#123;</span><br><span class="line">        console.log(&quot;Slithering...&quot;);</span><br><span class="line">        super.move(distanceInMeters);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Horse extends Animal &#123;</span><br><span class="line">    constructor(name: string) &#123; super(name); &#125;</span><br><span class="line">    move(distanceInMeters = 45) &#123;</span><br><span class="line">        console.log(&quot;Galloping...&quot;);</span><br><span class="line">        super.move(distanceInMeters);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let sam = new Snake(&quot;Sammy the Python&quot;);</span><br><span class="line">let tom: Animal = new Horse(&quot;Tommy the Palomino&quot;);</span><br><span class="line"></span><br><span class="line">sam.move();</span><br><span class="line">tom.move(34);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用extends关键字创建了Animal的两个子类Horse和Snake，派生类包含类一个构造函数，必须调用super(),它会执行基类的构造函数。而且，<strong>在构造函数里访问this属性之前，我们一定要调用super()</strong></p>
+<ul>
+<li>公共，私有与受保护的修饰符</li>
+</ul>
+<ol>
+<li>类默认伟为public，我们可以自由的访问程序里定义的成员。</li>
+<li>private：不能在它的类的外部使用。</li>
+<li>protected：protected成员在派生类中仍然可以访问。</li>
+</ol>
+<ul>
+<li>抽象类<br>抽象类作为其他派生类的基类使用。它们一般不会直接被实例化。不同于接口，抽象类可以包含成员的实现细节。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">    abstract makeSound(): void;</span><br><span class="line">    move(): void &#123;</span><br><span class="line">        console.log(&apos;roaming the earch...&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。</strong> 抽象方法的语法与接口方法相似。 两者都是定义方法签名但不包含方法体。 然而，抽象方法必须包含 abstract关键字并且可以包含访问修饰符。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li>书写完整函数类型  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let myAdd: (baseValue: number, increment: number) =&gt; number =</span><br><span class="line">    function(x: number, y: number): number &#123; return x + y; &#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>对于返回值，在函数和返回值类型之前使用( =&gt; )符号，使之清晰明了。<strong>返回值类型是函数类型的必要部分，如果没有返回任何值，你也必须指定返回值类型为void而不能留空</strong></p>
+<ul>
+<li><p>可选参数和默认参数<br>可选参数通过在参数名旁使用？实现，<strong>可选参数必须跟在必须参数后面</strong></p>
+</li>
+<li><p>this和箭头函数  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let deck = &#123;</span><br><span class="line">    suits: [&quot;hearts&quot;, &quot;spades&quot;, &quot;clubs&quot;, &quot;diamonds&quot;],</span><br><span class="line">    cards: Array(52),</span><br><span class="line">    createCardPicker: function() &#123;</span><br><span class="line">        return function() &#123;</span><br><span class="line">            let pickedCard = Math.floor(Math.random() * 52);</span><br><span class="line">            let pickedSuit = Math.floor(pickedCard / 13);</span><br><span class="line"></span><br><span class="line">            return &#123;suit: this.suits[pickedSuit], card: pickedCard % 13&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cardPicker = deck.createCardPicker();</span><br><span class="line">let pickedCard = cardPicker();</span><br><span class="line"></span><br><span class="line">alert(&quot;card: &quot; + pickedCard.card + &quot; of &quot; + pickedCard.suit);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以看到createCardPicker是个函数，并且它又返回了一个函数。 如果我们尝试运行这个程序，会发现它并没有弹出对话框而是报错了。 因为 createCardPicker返回的函数里的this被设置成了window而不是deck对象。 因为我们只是独立的调用了 cardPicker()。 顶级的非方法式调用会将 this视为window。 （注意：在严格模式下， this为undefined而不是window）。解决方案是将return一个箭头函数</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/面试总结/" rel="next" title="面试总结">
+                <i class="fa fa-chevron-left"></i> 面试总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KIRIN</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础类型"><span class="nav-number">1.</span> <span class="nav-text">基础类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口"><span class="nav-number">2.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类"><span class="nav-number">3.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">4.</span> <span class="nav-text">函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KIRIN</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
