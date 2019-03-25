@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="KIRIN&#39;S blog">
 <meta property="og:description" content="React虚拟DOMreact将真实DOM抽象为虚拟DOM，然后通过新旧虚拟DOM这两个对象的差异(Diff算法)，最终将变化的部分重新渲染，提高效率。虚拟dom算法：1.用javascript对象表示DOM树的结构，然后用这个树构建一个真正的DOM树，插到文档中。2.当状态变更的时候，重新构造一颗新的对象树，然后用对比新旧树，记录差异。3.把记录的差异用到步骤1构建的真实DOM树，更新视图一句话">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-18T02:54:20.043Z">
+<meta property="og:image" content="http://yoursite.com/images/2019-3/2019-03-20.jpg">
+<meta property="og:updated_time" content="2019-03-22T10:26:31.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试总结">
 <meta name="twitter:description" content="React虚拟DOMreact将真实DOM抽象为虚拟DOM，然后通过新旧虚拟DOM这两个对象的差异(Diff算法)，最终将变化的部分重新渲染，提高效率。虚拟dom算法：1.用javascript对象表示DOM树的结构，然后用这个树构建一个真正的DOM树，插到文档中。2.当状态变更的时候，重新构造一颗新的对象树，然后用对比新旧树，记录差异。3.把记录的差异用到步骤1构建的真实DOM树，更新视图一句话">
+<meta name="twitter:image" content="http://yoursite.com/images/2019-3/2019-03-20.jpg">
 
 
 
@@ -359,6 +361,15 @@
 <li>微任务、宏任务<br>微任务和宏任务皆为异步任务，它们都属于一个队列，主要区别在于它们的执行顺序，event loop的走向和取值。<br>js异步有一个机制，就是遇到宏任务，先执行宏任务，将宏任务放入event queue，然后在执行微任务，将微任务放入event queue。当你往外拿的时候先从微任务手里拿回调函数，然后再从宏任务的queue上拿宏任务的回调函数。<br>宏任务一般： 包括整体代码script, setTimeout, setInterval, setImmediate.<br>微任务： 原生Promise（有些实现的promise 将then方法放到了宏任务中）、process.nextTick、MutaionObserver、Object.observer(已废弃)  </li>
 </ol>
 <p>参考： <a href="https://juejin.im/post/5b498d245188251b193d4059" target="_blank" rel="noopener">微任务/宏任务详解</a></p>
+<h3 id="DOMContentLoaded-Load事件"><a href="#DOMContentLoaded-Load事件" class="headerlink" title="DOMContentLoaded/Load事件"></a>DOMContentLoaded/Load事件</h3><p>结合DOM文档加载的加载步骤，DOMContentLoaded事件/Load事件，触发时机如下：  </p>
+<ol>
+<li>解析HTMl结构</li>
+<li>加载外部脚本和样式文件。</li>
+<li>解析并执行脚本代码。 // 部分脚本会阻塞页面的加载</li>
+<li>DOM树构建完成。 // DOMContentLoaded事件</li>
+<li>加载图片等外部文件。</li>
+<li>页面加载完毕。 // load事件</li>
+</ol>
 <h3 id="js数组方法"><a href="#js数组方法" class="headerlink" title="js数组方法"></a>js数组方法</h3><ul>
 <li>slice方法返回从该为参数指定位置开始到当前数组末尾的所有项。如果两个参数，该方法返回起始位置和结束位置之间的项但不包括结束位置的项。<strong><em>该方法不会影响愿数组</em></strong></li>
 <li><p>splice最强大的数组方法：</p>
@@ -375,9 +386,53 @@
 <li>对数组中的每一项运行给定函数，如果该函数对任一项返回 true，则返回 true。</li>
 </ol>
 </li>
-<li>reduce 遍历数组中的所有项并返回一个最终值。方法接收两个参数：一个在每一项上调用的函数和（可选的）作为归并基础的初始值。<h3 id="js冻结对象"><a href="#js冻结对象" class="headerlink" title="js冻结对象"></a>js冻结对象</h3></li>
+<li>reduce 遍历数组中的所有项并返回一个最终值。方法接收两个参数：一个在每一项上调用的函数和（可选的）作为归并基础的初始值。</li>
 </ul>
+<h3 id="proto和prototype的区别和关系"><a href="#proto和prototype的区别和关系" class="headerlink" title="proto和prototype的区别和关系"></a><em>proto</em>和prototype的区别和关系</h3><p>首先贴上关键图片: <img src="/images/2019-3/2019-03-20.jpg" alt="原型图">  </p>
 <ol>
+<li>方法（Function）是对象，方法的原型（Function.prototype）是对象。因此就具有对象共有的特点，即：对象具有属性<em>proto</em>可称为隐式原型，一个对象的隐式原型指向<strong>构造该对象的构造函数的原型</strong>，这就保证了实例能够访问在构造函数原型中定义的属性和方法。</li>
+<li>方法（Function）是个特殊的对象，除了具有<em>proto</em>属性之外，还有自己特有的属性——原型属性（prototype），这个属性是一个指针，指向一个对象，这个对象的用途就是包含所有实例共享的属性和方法（我们把这个对象叫做原型对象）。原型对象有属性constructor,这个属性包含了一个指针，指回原构造函数。  </li>
+</ol>
+<p>总结： </p>
+<ol>
+<li>对象具有属性<em>proto</em>，<strong>指向该对象的构造函数的原型对象</strong>，Object.prototype的<em>proto</em>属性指向null。</li>
+<li>方法除了有属性<em>proto</em>，还有属性prototype,prototype指向该方法的原型对象。</li>
+</ol>
+<h3 id="防抖与节流"><a href="#防抖与节流" class="headerlink" title="防抖与节流"></a>防抖与节流</h3><ul>
+<li><p>防抖: 任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">window.onload = function() &#123;</span><br><span class="line">      // 1、获取这个按钮，并绑定事件</span><br><span class="line">      var myDebounce = document.getElementById(&quot;debounce&quot;);</span><br><span class="line">      myDebounce.addEventListener(&quot;click&quot;, debounce(sayDebounce));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2、防抖功能函数，接受传参</span><br><span class="line">    function debounce(fn) &#123;</span><br><span class="line">      // 4、创建一个标记用来存放定时器的返回值</span><br><span class="line">      let timeout = null;</span><br><span class="line">      return function() &#123;</span><br><span class="line">        // 5、每次当用户点击/输入的时候，把前一个定时器清除</span><br><span class="line">        clearTimeout(timeout);</span><br><span class="line">        // 6、然后创建一个新的 setTimeout，</span><br><span class="line">        // 这样就能保证点击按钮后的 interval 间隔内</span><br><span class="line">        // 如果用户还点击了的话，就不会执行 fn 函数</span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">          fn.call(this, arguments);</span><br><span class="line">        &#125;, 1000);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 3、需要进行防抖的事件处理</span><br><span class="line">    function sayDebounce() &#123;</span><br><span class="line">      // ... 有些需要防抖的工作，在这里执行</span><br><span class="line">      console.log(&quot;防抖成功！&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>节流: 指定时间间隔内只会执行一次任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">window.onload = function() &#123;</span><br><span class="line">      // 1、获取按钮，绑定点击事件</span><br><span class="line">      var myThrottle = document.getElementById(&quot;throttle&quot;);</span><br><span class="line">      myThrottle.addEventListener(&quot;click&quot;, throttle(sayThrottle));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2、节流函数体</span><br><span class="line">    function throttle(fn) &#123;</span><br><span class="line">      // 4、通过闭包保存一个标记</span><br><span class="line">      let canRun = true;</span><br><span class="line">      return function() &#123;</span><br><span class="line">        // 5、在函数开头判断标志是否为 true，不为 true 则中断函数</span><br><span class="line">        if(!canRun) &#123;</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        // 6、将 canRun 设置为 false，防止执行之前再被执行</span><br><span class="line">        canRun = false;</span><br><span class="line">        // 7、定时器</span><br><span class="line">        setTimeout( () =&gt; &#123;</span><br><span class="line">          fn.call(this, arguments);</span><br><span class="line">          // 8、执行完事件（比如调用完接口）之后，重新将这个标志设置为 true</span><br><span class="line">          canRun = true;</span><br><span class="line">        &#125;, 1000);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 3、需要节流的事件</span><br><span class="line">    function sayThrottle() &#123;</span><br><span class="line">      console.log(&quot;节流成功！&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="重绘与回流（重排"><a href="#重绘与回流（重排" class="headerlink" title="重绘与回流（重排"></a>重绘与回流（重排</h3><ul>
+<li><p>重绘（repaint): 当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，由于只需要UI层面的重新像素绘制，因此损耗较少。常见的重绘操作有：  </p>
+<ol>
+<li>改变元素颜色</li>
+<li>改变元素背景色</li>
+<li>more。。。</li>
+</ol>
+</li>
+<li><p>回流（reflow): 又叫重排。当元素的尺寸、结构或者触发某些属性时，浏览器会重新刷新页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此时较重的操作。常见的回流操作有：</p>
+<ol>
+<li>页面初次渲染</li>
+<li>浏览器窗口大小改变</li>
+<li>元素尺寸/位置/内容发生改变</li>
+<li>元素字体大小变化</li>
+<li>添加或者删除可见的DOM元素</li>
+<li>激活CSS伪类</li>
+<li>more。。。</li>
+</ol>
+</li>
+</ul>
+<p><strong>回流必定触发重绘，重绘不一定触发回流。重绘的开销较小，回流的代价较高</strong><br>为什么需要节流？ 因为有些事情会造成浏览器的回流，而回流会使浏览器的开销增大，所以通过节流来防止增大浏览器开销的事情。<br>如何避免大量使用重绘与回流呢？</p>
+<ol>
+<li>避免频繁操作样式，可汇总后统一一次修改</li>
+<li>尽量使用class进行样式修改，而不是直接操作样式</li>
+<li>减少DOM的操作，可使用字符串一次性插入</li>
+</ol>
+<h3 id="js冻结对象"><a href="#js冻结对象" class="headerlink" title="js冻结对象"></a>js冻结对象</h3><ol>
 <li>Object.freeze() 冻结一个对象：<ul>
 <li>不能向这个对象添加新属性  </li>
 <li>不能修改其已有属性的值  </li>
@@ -411,12 +466,83 @@
 <h3 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h3><p>为实现多参函数提供了一个递归降解的实现思路—把接受多个参数的函数变换成接受一个单一参数的函数，并且返回接受余下的参数而且返回结果的新函数。</p>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><ol>
 <li>可以读取函数内部的变量。</li>
-<li>让这些变量的值始终保持在内存中。</li>
+<li>让这些变量的值始终保持在内存中。<br>弊端： 占用内存，慎用。</li>
 </ol>
 <h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Cat() &#123;</span><br><span class="line">  say() &#123;</span><br><span class="line">    console.log(&quot;meow ~&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Cat() &#123;</span><br><span class="line">  Object.defineProperty(Cat.proptotype, &quot;say&quot;, &#123;</span><br><span class="line">    value: function() &#123; console.log(&quot;meow ~&quot;) &#125;,</span><br><span class="line">    enumerable: false,</span><br><span class="line">    configurable: true,</span><br><span class="line">    writable: true</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">-------------------</span><br><span class="line"></span><br><span class="line">function readonly(target, name, desciptor) &#123;</span><br><span class="line">  desciptor.writable = false;</span><br><span class="line">  return descriptor</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat &#123;</span><br><span class="line">  @readonly</span><br><span class="line">  say() &#123;</span><br><span class="line">    console.log(&quot;meow `&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>由此可以看出作用于类的属性的时候的装饰器函数接收的参数就是上述ES6中的类定义属性时候使用Object.defineProperty时接收的参数是一样的。</p>
 <p><strong><em>本质上也就是说装饰器在作用于类的属性的时候，实际上是通过Object.defineProperty</em></strong><br>装饰一个类：<br>装饰一个类的时候本身本质上是一个函数，没有descriptor，target是这个函数本身。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function isAnimal(target) &#123;</span><br><span class="line">    target.isAnimal = true;</span><br><span class="line">  	return target;</span><br><span class="line">&#125;</span><br><span class="line">@isAnimal</span><br><span class="line">class Cat &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">console.log(Cat.isAnimal);</span><br></pre></td></tr></table></figure></p>
 <p>也就是说，上面的@isAnimal其实就是做了下面这件事：<br><code>Cat = isAnimal(function Cat() { ... });</code> </p>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>操作节点： </p>
+<ol>
+<li>appendChild: 向childNodes列表的末尾添加一个节点</li>
+<li>insertBefore: 这个方法要接收两个参数，要插入的节点和作为参照的节点，吐过参照节点是null，则insertBefore与appendChild执行相同的操作</li>
+<li>replaceChild: 方法接收的两个参数是要插入的节点和要替换的节点</li>
+<li>removeChild: 接受一个参数即要移除的节点</li>
+<li>cloneNode: 创建这个节点完全相同的副本，该方法接受一个boolean值参数，表示是否执行深复制，true执行深复制，也就是复制节点及其整个子节点树。</li>
+</ol>
+<p>查找元素: </p>
+<ol>
+<li>getElementById</li>
+<li>getElementsByTagName: 接受元素的标签名，返回的包含0或者多个元素的NodeList。</li>
+<li>getElementsByName: 这个方法返回带有给定name特性的所有元素</li>
+<li>querySelector: 接受一个css选择符，返回与该模式匹配的第一个元素,没有返回null。</li>
+<li>querySelectorAll: 接受一个css选择符，返回Nodelist的实例。</li>
+<li>matchesSelector: 接受一个选择符，如果调用元素与该元素匹配返回true否则false</li>
+<li>getElementsByClassName: 接受一个包含一个或多个类名的字符串，返回带有指定类的所有元素的NodeList</li>
+<li>DOMTokenList: 为所有元素添加classList属性，这个classList属性是新集合DOMTokenList的实例。含有4个属性，add——将给定的字符串添加到列表中，如果已经存在则不添加;contains——表示列表中是否存在给定的值，如果存在则返回true,否则返回false;remove——从列表中删除给定的字符串;toggle——如果列表中已经存在给定的值，删除它，如果没有给定的值，添加它。</li>
+</ol>
+<p>创建元素</p>
+<ol>
+<li>document.createElement: 接受一个参数即要创建元素的标签名</li>
+<li>document.createTextNode: 创建新文本节点，接受一个参数插入节点中的文本。</li>
+<li>documentFragment.createDocumentFragment: DocumentFragment在文档中没有对应的标记，可以包含和控制节点，但不会像完整的文档那样占用额外的资源。虽然不能把文档片段直接添加到文档中，但是可以将它作为“仓库”来使用，即在里面保存将来可能会添加到文档中的节点。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var fragment = document.createDocumentFragment();</span><br><span class="line">    var ul = document.getElementById(&quot;myList&quot;);</span><br><span class="line">    var li = null;</span><br><span class="line">    for (var i=0; i &lt; 3; i++)&#123;</span><br><span class="line">        li = document.createElement(&quot;li&quot;);</span><br><span class="line">        li.appendChild(document.createTextNode(&quot;Item &quot; + (i+1)));</span><br><span class="line">        fragment.appendChild(li);</span><br><span class="line">    &#125;</span><br><span class="line">    ul.appendChild(fragment);</span><br><span class="line">    // 一次性放入也有利于提升性能</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>焦点管理<br>document.activeElement属性始终引用DOM中当前获得来焦点的元素，元素获得焦点的方式有页面加载、用户输入和在代码中调用focus()方法，document.hasFocus勇于确定文档是否获得了焦点。</p>
+</li>
+<li><p>scrollIntoView<br>document.forms[0].scrollIntoView通过浏览器窗口或某个容器元素，调用就可以出现在视口中。</p>
+</li>
+<li><p>事件处理程序<br>DOM2级事件，addEventListener和removeEventListener接受3个参数：要处理的事件名、作为事件处理程序的函数和一个布尔值。布尔值参数为true表示在捕获阶段调用事件处理程序；如果是false表示在冒泡阶段调用事件处理程序。<br>移除的事件处理函数必须与传入的addEventListener相同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> var btn = document.getElementById(&quot;myBtn&quot;);</span><br><span class="line">    btn.addEventListener(&quot;click&quot;, function()&#123;</span><br><span class="line">        alert(this.id);</span><br><span class="line">    &#125;, false);</span><br><span class="line">//这里省略了其他代码</span><br><span class="line">btn.removeEventListener(&quot;click&quot;, function()&#123; //没有用! </span><br><span class="line">  alert(this.id);</span><br><span class="line">&#125;, false);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var btn = document.getElementById(&quot;myBtn&quot;);</span><br><span class="line">    var handler = function()&#123;</span><br><span class="line">        alert(this.id);</span><br><span class="line">    &#125;;</span><br><span class="line">    btn.addEventListener(&quot;click&quot;, handler, false);</span><br><span class="line">//这里省略了其他代码</span><br><span class="line">btn.removeEventListener(&quot;click&quot;, handler, false); //有效!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><p>通过优化从而提高页面的加载速度：</p>
+<ul>
+<li>HTML优化</li>
+</ul>
+<ol>
+<li>避免html中书写CSS代码，因此这样难以维护。</li>
+<li>使用Viewport加速页面的渲染。</li>
+<li>使用语义化标签，减少CSS代码，增加可读性和SEO。</li>
+<li>减少标签的使用，DOM解析是一个大量遍历的过程，减少不必要的标签，能降低遍历的次数。</li>
+<li>减少src、href等值为空，因为即使为空浏览器还是会发起HTTP请求</li>
+<li>减少DNS查询的次数</li>
+</ol>
+<ul>
+<li>CSS优化</li>
+</ul>
+<ol>
+<li>优化选择器路径： 使用.c {}而不是.a.b.c {}。</li>
+<li>选择器合并： 共同的属性内容提取出来，压缩空间和资源开销。</li>
+<li>精确样式：使用padding-left:10px而不是padding: 0 0 0 10px。</li>
+<li>雪碧图：将小的图标合并到一张图中，这样所有的图片只需要请求一次。</li>
+<li>减少通配符： .a.b * {}这样的选择器，根据从右到左的解析顺序会优先遍历整个DOM，性能大大损耗。</li>
+<li>少用float： float在渲染时计算量比较大，可以使用flex布局。</li>
+<li>为0值去单位： 增加兼容性</li>
+<li>压缩文件大小，减少资源下载负担。</li>
+</ol>
+<ul>
+<li>Javascript优化</li>
+</ul>
+<ol>
+<li>将script标签放在body之后，避免js的执行卡住DOM的渲染，最大程度保证页面尽快的展示出来。</li>
+<li>合并js代码：提取公共方法，进行封装或者面向对象设计</li>
+<li>CSS能做的事情，尽量不用JS来做，毕竟js的解析执行比较粗暴，而CSS效率更高。</li>
+<li>尽可能逐条操作DOM，并预定好CSS样式，从而减少reflow或者repaint的次数。</li>
+<li>尽可能少地创建DOM，而是在HTML和CSS中使用display:none来隐藏，按需显示。</li>
+<li>压缩文件大小，减少资源下载负担。</li>
+</ol>
 <h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><h3 id="for-in和for-of的区别"><a href="#for-in和for-of的区别" class="headerlink" title="for in和for of的区别"></a>for in和for of的区别</h3><ol>
 <li>推荐用for in来遍历对象，for of来遍历数组</li>
 <li>for in循环出的是key， for of循环出的是value</li>
@@ -454,6 +580,26 @@
 <li>4** 客户端错误，请求包含语法错误或无法完成请求</li>
 <li>5** 服务器错误，服务器在处理请求的过程中发生了错误。</li>
 </ul>
+<h3 id="GET与POST的区别"><a href="#GET与POST的区别" class="headerlink" title="GET与POST的区别"></a>GET与POST的区别</h3><ul>
+<li><p>W3C  </p>
+<ol>
+<li>参数的数据类型，GET只接受ASCII字符，而POST没有限制，允许二进制</li>
+<li>GET在浏览器回退/刷新时是无害的，而POST会再次提交请求</li>
+<li>GET请求只能进行url编码（application/x-www-form-urlencoded）,而POST支持多种编码方式（application/x-www-form-urlencoded或multipart/form-data），可以为二进制使用多重编码。</li>
+<li>POST比GET更安全，因为GET参数直接暴露在URL上，POST参数在HTTP消息主体中，而且不会保存在浏览器历史或web服务器日志中。</li>
+<li>对参数数据长度的限制，GET方法URL的长度是受限制的，最大是2048个字符，POST参数数据是没有限制的。</li>
+<li>GET请求会被浏览器主动缓存，POST不会，除非手动设置。</li>
+<li>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会保留。</li>
+<li>GET请求可被收藏为书签，POST不能。</li>
+</ol>
+</li>
+<li><p>WSC</p>
+<ol>
+<li>GET和POST本质上都是TCP链接，给GET加上request body，给POST加上url参数，技术上是可行的。但是由于HTTP的规定和浏览器/服务器的限制，导致在应用过程中体现出一些不同。</li>
+<li>GET会产生一个TCP数据包，POST产生两个TCP数据包。对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200；而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。</li>
+</ol>
+</li>
+</ul>
 <h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><p>BFC（Block formating context）直译为”块级格式化上下文”。它是一个独立的渲染区域，它规定了北部的block-level-box如何布局，并且与这个区域外部毫不相干。<br>形成条件： </p>
 <ul>
 <li>浮动元素， float除none以外的值</li>
@@ -480,6 +626,38 @@
 </li>
 <li><p>border-box width和height属性包括内容，内边距和边框，但不包括外边距。这里的纬度计算公式为： width = border + padding + 内容的width， height = border + padding + 内容的height。</p>
 </li>
+</ol>
+<h3 id="css全局污染的解决方案"><a href="#css全局污染的解决方案" class="headerlink" title="css全局污染的解决方案"></a>css全局污染的解决方案</h3><p>我们经常通过class或者id选择器来修改html的样式，并且允许在一个css文件中存在两个class名字一样的样式，但是当多人合作开发一个页面时，难免出现类名重复导致样式互相影响的问题。</p>
+<ol>
+<li>scoped属性： html5带来了很多强势的功能，其中scoped属性可以让我们更好的控制样式，让其变成局部的。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style scoped&gt;</span><br><span class="line">.class &#123;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">```  </span><br><span class="line">不过存在兼容性问题，在chrome下时无效的，只有在firefox下才有效。  </span><br><span class="line"></span><br><span class="line">2. css in js ： 类似于react中的jsx一样的一个语法糖，你可以命名一个对象变量，然后利用react的style，传对应的style对象进去。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>const styles = {<br>  bar: {<br>    backgroundColor: ‘red’;<br>  }<br>}<br>const example = (props) =&gt; (<br>  <div style="{styles.bar}"></div><br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. CSS Modules： 现在的网页开发都是通过组件，模块化开发。css modules就是将css模块化的技术。可参考[阮老师的教程](http://www.ruanyifeng.com/blog/2016/06/css_modules.html)。</span><br><span class="line">大致如此： </span><br><span class="line">- 将class编译成哈希字符串</span><br></pre></td></tr></table></figure></p>
+<p></p><h1 class="_3zyde4l1yATCOkgn-DBWEL"><br>  Hello World<br></h1><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">采用webpack的css-loader插件，它对css modules的支持最好。</span><br></pre></td></tr></table></figure><p></p>
+<p>module.exports = {<br>  entry: __dirname + ‘/index.js’,<br>  output: {<br>    publicPath: ‘/‘,<br>    filename: ‘./bundle.js’<br>  },<br>  module: {<br>    loaders: [<br>      {<br>        test: /.jsx?$/,<br>        exclude: /node_modules/,<br>        loader: ‘babel’,<br>        query: {<br>          presets: [‘es2015’, ‘stage-0’, ‘react’]<br>        }<br>      },<br>      {<br>        test: /.css$/,<br>        loader: “style-loader!css-loader?modules”<br>      },<br>    ]<br>  }<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">其中`style-loader!css-loader?modules`最为关键，css-loader后加入查询参数modules表示打开CSS Modules功能。</span><br><span class="line">- 全局作用域  </span><br><span class="line">:global(.className)的语法，表示声明一个全局规则，凡是这样生命的都不会编译成哈希字符串。</span><br><span class="line">- 定制哈希类名  </span><br><span class="line">css-loader默认的哈希算法是[hash:base64]，会将.title编译成._3zyde4l1yATCOkgn-DBWEL这样的字符串。webpack可以定制哈希字符串的格式。</span><br></pre></td></tr></table></figure></p>
+<p>module: {<br>  loaders: [<br>    // …<br>    {<br>      test: /.css$/,<br>      loader: “style-loader!css-loader?modules&amp;localIdentName=[path][name]—[local]—[hash:base64:5]”<br>    },<br>  ]<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- class的组合</span><br></pre></td></tr></table></figure></p>
+<p>在同一个css中<br>.className {<br>  background-color: blue;<br>}</p>
+<p>.title {<br>  composes: className;<br>  color: red;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-  其他模块  </span><br><span class="line">antoher.css</span><br></pre></td></tr></table></figure></p>
+<p>.className {<br>  background-color: blue;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">App.css 可以继承another.css里面的规则</span><br></pre></td></tr></table></figure></p>
+<p>.title {<br>  composes: className from ‘./another.css’;<br>  color: red;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 输入变量  </span><br><span class="line">css modules支持使用变量，不过需要安装PostCSS和postcss-modules-values</span><br><span class="line">`npm install --save postcss-loader postcss-modules-values`</span><br><span class="line">把postcss-loader加入webpack.config.js</span><br></pre></td></tr></table></figure></p>
+<p>var values = require(‘postcss-modules-values’);</p>
+<p>module.exports = {<br>  entry: __dirname + ‘/index.js’,<br>  output: {<br>    publicPath: ‘/‘,<br>    filename: ‘./bundle.js’<br>  },<br>  module: {<br>    loaders: [<br>      {<br>        test: /.jsx?$/,<br>        exclude: /node_modules/,<br>        loader: ‘babel’,<br>        query: {<br>          presets: [‘es2015’, ‘stage-0’, ‘react’]<br>        }<br>      },<br>      {<br>        test: /.css$/,<br>        loader: “style-loader!css-loader?modules!postcss-loader”<br>      },<br>    ]<br>  },<br>  postcss: [<br>    values<br>  ]<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">接着，在colors.css里面定义变量</span><br></pre></td></tr></table></figure></p>
+<p>@value blue: #0c77f8;<br>@value red: #ff0000;<br>@value green: #aaf200;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">App.css可以引用这些变量</span><br></pre></td></tr></table></figure></p>
+<p>@value colors: “./colors.css”;<br>@value blue, red, green from colors;</p>
+<p>.title {<br>  color: red;<br>  background-color: blue;<br>}<br><code>`</code></p>
+<h3 id="table布局的优缺点"><a href="#table布局的优缺点" class="headerlink" title="table布局的优缺点"></a>table布局的优缺点</h3><p>缺点  </p>
+<ol>
+<li>table比其他html标记占更多的字节（造成下载时间延迟，占用服务器更多流量资源）</li>
+<li>table会阻挡浏览器渲染引擎的渲染顺序。（会延迟页面的生成速度，让用户等待更久的时间）</li>
+<li>table里面显示图片需要你把单个、有逻辑的图片切成多个图。（增加设计的复杂度，增加页面加载时间，增加http会话数）</li>
+<li>限制页面设计的自由性</li>
+<li>table对于页面布局来说，从语义上看是不正确的。（它描述的是表现，而不是内容）</li>
+<li>不但无法利用css，而且阅读繁琐，尤其是在进行页面改版或内容抽取的时候。</li>
+<li>table一旦设计完成就变成死的，很难通过css让它展现新的面貌  </li>
+</ol>
+<p>优点</p>
+<ol>
+<li>用table做表格</li>
 </ol>
 
       
@@ -517,8 +695,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/15/hexo+github搭建自己的个人博客/" rel="prev" title="hexo+github搭建自己的个人博客">
-                hexo+github搭建自己的个人博客 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/15/typescript学习笔记/" rel="prev" title="typescript学习笔记">
+                typescript学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -642,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React"><span class="nav-number">1.</span> <span class="nav-text">React</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟DOM"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react何时同步更新state"><span class="nav-number">1.2.</span> <span class="nav-text">react何时同步更新state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Hooks"><span class="nav-number">1.3.</span> <span class="nav-text">React Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super作用："><span class="nav-number">1.4.</span> <span class="nav-text">super作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keys作用："><span class="nav-number">1.5.</span> <span class="nav-text">keys作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setState工作原理"><span class="nav-number">1.6.</span> <span class="nav-text">setState工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element与Component的区别"><span class="nav-number">1.7.</span> <span class="nav-text">Element与Component的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要使用React提供的Children-API而不是Javascript的map？"><span class="nav-number">1.8.</span> <span class="nav-text">为什么需要使用React提供的Children API而不是Javascript的map？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setState函数的第二个参数的作用是什么？"><span class="nav-number">1.9.</span> <span class="nav-text">setState函数的第二个参数的作用是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react组件类型"><span class="nav-number">1.10.</span> <span class="nav-text">react组件类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript概念"><span class="nav-number">2.</span> <span class="nav-text">Javascript概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js微任务-宏任务"><span class="nav-number">2.1.</span> <span class="nav-text">js微任务/宏任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js数组方法"><span class="nav-number">2.2.</span> <span class="nav-text">js数组方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js冻结对象"><span class="nav-number">2.3.</span> <span class="nav-text">js冻结对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">2.4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">2.5.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象"><span class="nav-number">2.6.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#柯里化"><span class="nav-number">2.7.</span> <span class="nav-text">柯里化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">2.8.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">2.9.</span> <span class="nav-text">装饰器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6"><span class="nav-number">3.</span> <span class="nav-text">ES6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-in和for-of的区别"><span class="nav-number">3.1.</span> <span class="nav-text">for in和for of的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">4.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP与UDP区别"><span class="nav-number">4.1.</span> <span class="nav-text">TCP与UDP区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP协议如何提高传输效率"><span class="nav-number">4.2.</span> <span class="nav-text">TCP协议如何提高传输效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">4.3.</span> <span class="nav-text">HTTP状态码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">5.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC"><span class="nav-number">5.1.</span> <span class="nav-text">BFC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-sticky（兼容性比较低）"><span class="nav-number">5.2.</span> <span class="nav-text">position: sticky（兼容性比较低）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#box-sizing"><span class="nav-number">5.3.</span> <span class="nav-text">box-sizing</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React"><span class="nav-number">1.</span> <span class="nav-text">React</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟DOM"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react何时同步更新state"><span class="nav-number">1.2.</span> <span class="nav-text">react何时同步更新state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Hooks"><span class="nav-number">1.3.</span> <span class="nav-text">React Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super作用："><span class="nav-number">1.4.</span> <span class="nav-text">super作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keys作用："><span class="nav-number">1.5.</span> <span class="nav-text">keys作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setState工作原理"><span class="nav-number">1.6.</span> <span class="nav-text">setState工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element与Component的区别"><span class="nav-number">1.7.</span> <span class="nav-text">Element与Component的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要使用React提供的Children-API而不是Javascript的map？"><span class="nav-number">1.8.</span> <span class="nav-text">为什么需要使用React提供的Children API而不是Javascript的map？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setState函数的第二个参数的作用是什么？"><span class="nav-number">1.9.</span> <span class="nav-text">setState函数的第二个参数的作用是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react组件类型"><span class="nav-number">1.10.</span> <span class="nav-text">react组件类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript概念"><span class="nav-number">2.</span> <span class="nav-text">Javascript概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js微任务-宏任务"><span class="nav-number">2.1.</span> <span class="nav-text">js微任务/宏任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOMContentLoaded-Load事件"><span class="nav-number">2.2.</span> <span class="nav-text">DOMContentLoaded/Load事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js数组方法"><span class="nav-number">2.3.</span> <span class="nav-text">js数组方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proto和prototype的区别和关系"><span class="nav-number">2.4.</span> <span class="nav-text">proto和prototype的区别和关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防抖与节流"><span class="nav-number">2.5.</span> <span class="nav-text">防抖与节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重绘与回流（重排"><span class="nav-number">2.6.</span> <span class="nav-text">重绘与回流（重排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js冻结对象"><span class="nav-number">2.7.</span> <span class="nav-text">js冻结对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">2.8.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">2.9.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象"><span class="nav-number">2.10.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#柯里化"><span class="nav-number">2.11.</span> <span class="nav-text">柯里化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">2.12.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">2.13.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM"><span class="nav-number">2.14.</span> <span class="nav-text">DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能优化"><span class="nav-number">2.15.</span> <span class="nav-text">性能优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6"><span class="nav-number">3.</span> <span class="nav-text">ES6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-in和for-of的区别"><span class="nav-number">3.1.</span> <span class="nav-text">for in和for of的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">4.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP与UDP区别"><span class="nav-number">4.1.</span> <span class="nav-text">TCP与UDP区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP协议如何提高传输效率"><span class="nav-number">4.2.</span> <span class="nav-text">TCP协议如何提高传输效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">4.3.</span> <span class="nav-text">HTTP状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET与POST的区别"><span class="nav-number">4.4.</span> <span class="nav-text">GET与POST的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">5.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC"><span class="nav-number">5.1.</span> <span class="nav-text">BFC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-sticky（兼容性比较低）"><span class="nav-number">5.2.</span> <span class="nav-text">position: sticky（兼容性比较低）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#box-sizing"><span class="nav-number">5.3.</span> <span class="nav-text">box-sizing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css全局污染的解决方案"><span class="nav-number">5.4.</span> <span class="nav-text">css全局污染的解决方案</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">  Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#table布局的优缺点"><span class="nav-number">0.1.</span> <span class="nav-text">table布局的优缺点</span></a></li></ol></li></div>
             
 
           </div>
