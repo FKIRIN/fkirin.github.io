@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="KIRIN&#39;S blog">
 <meta property="og:description" content="给函数添加方法 通过给Function构造函数的原型添加方法 1234567891011121314Function.prototype.addMethod = function(name, fn) &amp;#123;  this[name] = fn;  return this; // 方便链式调用&amp;#125;使用：const methods = function() &amp;#123;&amp;#125;; &amp;l">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-06T02:17:21.814Z">
+<meta property="og:updated_time" content="2019-05-06T03:20:07.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript设计模式">
 <meta name="twitter:description" content="给函数添加方法 通过给Function构造函数的原型添加方法 1234567891011121314Function.prototype.addMethod = function(name, fn) &amp;#123;  this[name] = fn;  return this; // 方便链式调用&amp;#125;使用：const methods = function() &amp;#123;&amp;#125;; &amp;l">
@@ -343,6 +343,11 @@
 </li>
 </ol>
 <p>解析： 在构造函数继承中调用了父类的构造函数，通过原型继承获得父类的原型对象的一个副本，直接赋值给子类会有问题，因为对父类原型对象复制得到的复制对象p中的constructor指向的不是subClass子类对象，因此对寄生式继承中要复制对象p做一次增强，修复其constructor属性指向不正确的问题，最后将得到的复制对象p复制给子类的原型，这样子类的原型就继承了父类的原型并且没有再次执行父类的构造函数。</p>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><ul>
+<li>简单工厂模式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function createBook(name, time, type) &#123;</span><br><span class="line">  var o = new Object();</span><br><span class="line">  o.name = name;</span><br><span class="line">  o.time = time;</span><br><span class="line">  o.type = type;</span><br><span class="line">  o.getName = function () &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">  return o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>解析：工厂模式可以通过实例化对象创建或者创建一个新对象然后包装增强其属性和功能来实现，都是类似与寄生式继承。<strong>通过简单工厂来创建一个对象，可以让这些对象共有一些资源而又私有一些资源</strong>。</p>
 
       
     </div>
@@ -458,7 +463,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -471,7 +476,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -504,7 +509,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#给函数添加方法"><span class="nav-number">1.</span> <span class="nav-text">给函数添加方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this创建对象"><span class="nav-number">2.</span> <span class="nav-text">this创建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的定义"><span class="nav-number">3.</span> <span class="nav-text">类的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承原理分析"><span class="nav-number">4.</span> <span class="nav-text">继承原理分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#给函数添加方法"><span class="nav-number">1.</span> <span class="nav-text">给函数添加方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this创建对象"><span class="nav-number">2.</span> <span class="nav-text">this创建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的定义"><span class="nav-number">3.</span> <span class="nav-text">类的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承原理分析"><span class="nav-number">4.</span> <span class="nav-text">继承原理分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式"><span class="nav-number">5.</span> <span class="nav-text">设计模式</span></a></li></ol></div>
             
 
           </div>
