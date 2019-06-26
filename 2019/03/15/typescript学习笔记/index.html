@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="KIRIN&#39;S blog">
 <meta property="og:description" content="基础类型 布尔值  数字（number）  字符串（string）    数组  在元素类型后面接上[],表示由此元素组成一个数组let list:number[] = [1, 2, 3]; 使用数组泛型let list:Array\&amp;lt;number&amp;gt; = [1, 2, 3]   元组   12let x: [string: number];x = [&amp;apos;hello&amp;apos;,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-18T02:54:20.043Z">
+<meta property="og:updated_time" content="2019-04-18T01:55:36.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="typescript学习笔记">
 <meta name="twitter:description" content="基础类型 布尔值  数字（number）  字符串（string）    数组  在元素类型后面接上[],表示由此元素组成一个数组let list:number[] = [1, 2, 3]; 使用数组泛型let list:Array\&amp;lt;number&amp;gt; = [1, 2, 3]   元组   12let x: [string: number];x = [&amp;apos;hello&amp;apos;,">
@@ -367,6 +367,13 @@ let c: Color = Color.Green</code></p>
 <li>protected：protected成员在派生类中仍然可以访问。</li>
 </ol>
 <ul>
+<li>private跟protected的区别</li>
+</ul>
+<ol>
+<li>private： 私有的。在类中如果声明一个属性为私有，则表示这个属性仅仅属于这个类。仅仅能在这个类中进行这个属性的访问，在<strong>子类和类的实现</strong>的对象中都不能访问。在子类可以通过调用这个属性的方法来间接使用这个属性。</li>
+<li>protected: 被保护的，针对对象。因为一个类可以化身为好多对象。对于这些对象共有的属性不应该让对象有访问和修改的权力。对于protected声明的属性可以在子类中访问它，<strong>不能在实现对象中访问</strong>。对于protected声明的构造方法，<strong>该类只能被继承不能被实现</strong></li>
+</ol>
+<ul>
 <li>抽象类<br>抽象类作为其他派生类的基类使用。它们一般不会直接被实例化。不同于接口，抽象类可以包含成员的实现细节。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">    abstract makeSound(): void;</span><br><span class="line">    move(): void &#123;</span><br><span class="line">        console.log(&apos;roaming the earch...&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -503,7 +510,7 @@ let c: Color = Color.Green</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -516,7 +523,7 @@ let c: Color = Color.Green</code></p>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
