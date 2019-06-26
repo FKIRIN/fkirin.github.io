@@ -209,3 +209,20 @@ function inheritPrototype(subClass, superClass){
 ```
 
 解析： 在构造函数继承中调用了父类的构造函数，通过原型继承获得父类的原型对象的一个副本，直接赋值给子类会有问题，因为对父类原型对象复制得到的复制对象p中的constructor指向的不是subClass子类对象，因此对寄生式继承中要复制对象p做一次增强，修复其constructor属性指向不正确的问题，最后将得到的复制对象p复制给子类的原型，这样子类的原型就继承了父类的原型并且没有再次执行父类的构造函数。
+
+### 设计模式
+
+- 简单工厂模式
+```
+function createBook(name, time, type) {
+  var o = new Object();
+  o.name = name;
+  o.time = time;
+  o.type = type;
+  o.getName = function () {
+    console.log(this.name)
+  }
+  return o;
+}
+```
+解析：工厂模式可以通过实例化对象创建或者创建一个新对象然后包装增强其属性和功能来实现，都是类似与寄生式继承。**通过简单工厂来创建一个对象，可以让这些对象共有一些资源而又私有一些资源**。
