@@ -136,7 +136,8 @@ console.log(instance2.books) // ['JS', 'html', 'css']
 console.log(instance2.id) // 11
 ```
 
-解析：`SuperClass.call(this,id)`是构造函数的精华，call方法改变了函数的作用环境，在子类中superClass调用这个方法就是将子类中的变量在父类执行一遍，由于父类是给this绑定属性的，因此子类就继承了父类的共有属性。由于类型的继承没有涉及原型prototype，所以父类的原型方法不会被子类继承。**子类不是父类的实例，子类的原型是父类的实例**
+解析：`SuperClass.call(this,id)`是构造函数的精华，call方法改变了函数的作用环境，在子类中superClass调用这个方法就是将子类中的变量在父类执行一遍，由于父类是给this绑定属性的，因此子类就继承了父类的共有属性。
+> 由于类型的继承没有涉及原型prototype，所以父类的原型方法不会被子类继承。**子类不是父类的实例，子类的原型是父类的实例**
 
 3. 组合式继承
 
@@ -213,6 +214,8 @@ function inheritPrototype(subClass, superClass){
 ### 设计模式
 
 - 简单工厂模式
+
+工厂方法模式本意是将实际创建对象工作推迟到子类当中。（js中可以理解为在类的原型上增加方法）
 ```
 function createBook(name, time, type) {
   var o = new Object();
@@ -226,3 +229,219 @@ function createBook(name, time, type) {
 }
 ```
 解析：工厂模式可以通过实例化对象创建或者创建一个新对象然后包装增强其属性和功能来实现，都是类似与寄生式继承。**通过简单工厂来创建一个对象，可以让这些对象共有一些资源而又私有一些资源**。
+
+- 安全的工厂模式
+在构造函数开始时先判断当前对象this是不是指向当前类（instanceOf 判断），如果是则通过new关键字创建对象，如果不是则在全局作用域window中执行。
+**工厂模式主要是为了创建对象实例或者类簇**
+```
+var Factory = function(type, content) {
+  if (this instanceOf Factory) {
+    return new this[type](content)
+  } else {
+    return new Factory(type, content)
+  }
+}
+Factory.prototype = {
+  Java: function(content) {
+
+  },
+  Javascript: function(content) {
+
+  },
+  Php: function(content) {
+
+  }
+}
+```
+
+- 原型模式  
+为了提高技能，每当创建基类时，对于每次创建的一些简单而又差异化的属性放在构造函数中，将一些消耗资源的方法放在基类的原型中。  
+原型模式就是将可复用的、可共享的、耗时大的从基类中提出来然后放在其原型中/、。
+```
+// 图片轮播基类
+var LoopImages = function(imgArr, container) {
+  this.imagesArray = imgArr;
+  this.container = container;
+}
+LoopImages.prototype = {
+  createImage: function() {
+
+  },
+  changeImage: function() {
+
+  }
+}
+
+// 上下滑动切换类
+var SlideLoopImg = function(imgArr, container) {
+  LoopImages.call(this, imgArr, container);
+}
+SlideLoopImg.prototype = new LoopImages();
+SlideLoopImg.prototype.changeImg = function() {
+
+}
+
+```
+
+- 单例模式
+
+只允许实例化一次的对象类。区别是主要加上命名空间。
+```
+var Ming = {
+  g: function(id) {
+    return document.getElementById(id)
+  },
+  css: function(id, key, value) {
+    g(id).style[key] = value;
+  }
+}
+```
+
+- 观察者模式  
+观察者模式的作用是为了解决**类或者对象之间的耦合，解耦两个相互依赖的对象**，使其依赖于观察者的消息机制。这样对于任意一个订阅者来说，其他订阅者对象的改变不会影响到自身。对于每一个订阅者来说，其自身既可以是消息的发出者也可以是消息的执行者，这都依赖于调用观察者对象的三种方法（订阅消息、注销消息、发送消息）。
+
+```
+var Observer = (function(){
+  var _messages = {};
+  return {
+    regist: function(type, fn) {
+      if (typeOf _message[type] === 'undefined') {
+        // 如果此消息不存在，则创建一个该消息类型
+        _message[type] = fn;
+      } else {
+        // 将动作方法推入该消息对应的动作执行序列中
+        _message[type].push(fn);
+      }
+    },
+    fire: function(type, args) {
+      if (!message[type]) return;
+      var events = {
+        type,
+        args: args || {}
+      };
+      len = _message[type].length;
+      let i;
+      for(; i< len; i++) {
+        // 依次执行注册的消息对应的动作序列
+        _message[type][i].call(this, events);
+      }
+    },
+    remove: function(type, fn) {
+      if (_message[type] instanceOf Array) {
+        let i = _message[type].length - 1;
+        // 如果存在该动作则在消息队列中移除相应动作
+        for(;i > 0;i--) {
+          _message[type][i] === fn && _message[type].splice(i, 1);
+        }
+      }
+    }
+  }
+})()
+```
+
+- 状态模式  
+状态模式既是解决程序中臃肿的分支判断语句问题，将每个分支转化为一种状态独立出来，方便每种状态的管理又不至于每次执行时遍历所有分支。
+
+```
+var MarryState = function() {
+  var _currentState = {},
+      states = {
+        jump: function() {
+          console.log('jump')
+        },
+        move: function() {
+          console.log('move')
+        },
+        shoot: function() {
+          console.log('shoot')
+        },
+        squat: function() {
+          console.log('squat')
+        }
+      };
+  var Action = function(){
+    changeState: function() {
+      var arg = arguments;
+      _currentState = {};
+      if (arg.length) {
+        for(var i=0,len = arg.length;i < len; i++) {
+          _currentState[arg[i]] = true;
+        }
+      }
+      return this;
+    },
+    goes: function() {
+      console.log('触发一次动作')；
+      for(var i in _currentState) {
+        states[i]&&states[i]()
+      }
+      return this;
+    }
+  }
+  return {
+    change: Action.changeState,
+    goes: Action.goes,
+  }
+}
+// 使用
+MarryState()
+  .change('jump', 'shoot')
+  .goes()
+  .change('shoot')
+或者
+var marry = new MarryState();
+marry.change('jump', 'shoot')
+  .goes()
+  .change('shoot')
+```
+
+- 惰性模式
+
+惰性模式：减少每次代码执行时的重复性的分支判断，通过对对象重定义来屏蔽原对象中的分支判断。
+```
+A.on = function(dom, type, fn) {
+  if (dom.addEventListener) {
+    dom.addEventListener(type, fn, false);
+  } else if (dom.attachEvent) {
+    dom.attachEvent('on' + type, fn)
+  } else {
+    dom['on' + type] = fn;
+  }
+}
+
+// 加载即执行的优化(页面加载时优化)
+A.on= function(dom, type, fn) {
+  if (dom.addEventListener) {
+    return function(dom, type, fn) {
+      dom.addEventListener(type, fn, false);
+    }
+  } else if (dom.attachEvent) {
+    return function(dom, type, fn) {
+      dom.attachEvent('on' + type, fn)
+    }
+  } else {
+    return function(dom, type, fn) {
+      dom['on' + type] = fn;
+    }
+  }
+}()
+
+// 惰性执行(第一次绑定时重新定义方法，第一次执行时耗费性能)
+A.on = function(dom, type, fn) {
+  if (dom.addEventListener) {
+    A.on = function(dom, type, fn) {
+      dom.addEventListener(type, fn, false);
+    }
+  } else if (dom.attachEvent) {
+    A.on = function(dom, type, fn) {
+      dom.attachEvent('on' + type, fn)
+    }
+  } else {
+    A.on = function(dom, type, fn) {
+      dom['on' + type] = fn;
+    }
+  }
+  A.on(dom, type, fn);
+}
+```
+
