@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="javascriptapply func.apply(thisArg, [arsArray])  thisArg: func函数运行时使用的this值，当指定为null或undefined时会自动替换为指向全局对象，原始值会被包装 argsArray: 数组或者类数组对象，其中的数组元素将作为单独的参数传给func函数   使用 数组添加到数组 123456789var arr1 = [&amp;apos">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript进阶">
+<meta property="og:url" content="http://yoursite.com/2019/07/25/javascript进阶/index.html">
+<meta property="og:site_name" content="KIRIN&#39;S blog">
+<meta property="og:description" content="javascriptapply func.apply(thisArg, [arsArray])  thisArg: func函数运行时使用的this值，当指定为null或undefined时会自动替换为指向全局对象，原始值会被包装 argsArray: 数组或者类数组对象，其中的数组元素将作为单独的参数传给func函数   使用 数组添加到数组 123456789var arr1 = [&amp;apos">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-06T02:21:35.204Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript进阶">
+<meta name="twitter:description" content="javascriptapply func.apply(thisArg, [arsArray])  thisArg: func函数运行时使用的this值，当指定为null或undefined时会自动替换为指向全局对象，原始值会被包装 argsArray: 数组或者类数组对象，其中的数组元素将作为单独的参数传给func函数   使用 数组添加到数组 123456789var arr1 = [&amp;apos">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/25/javascript进阶/">
+
+
+
+
+
+  <title>javascript进阶 | KIRIN'S blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KIRIN'S blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/javascript进阶/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KIRIN">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KIRIN'S blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript进阶</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T09:48:37+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h2><h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><blockquote>
+<p>func.apply(thisArg, [arsArray])</p>
+<ul>
+<li>thisArg: func函数运行时使用的this值，当指定为null或undefined时会自动替换为指向全局对象，原始值会被包装</li>
+<li>argsArray: 数组或者类数组对象，其中的数组元素将作为单独的参数传给func函数</li>
+</ul>
+</blockquote>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ol>
+<li><p>数组添加到数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [&apos;a&apos;, &apos;b&apos;];</span><br><span class="line">var arr2 = [1, 2];</span><br><span class="line">arr1.push(arr2); // [&apos;a&apos;, &apos;b&apos;, [1, 2]];</span><br><span class="line">arr1.push.apply(arr1, arr2);// [&apos;a&apos;, &apos;b&apos;, 1, 2]</span><br><span class="line"></span><br><span class="line">// 场景2</span><br><span class="line">/* 找出数组中最大/小的数字 */</span><br><span class="line">var numbers = [5, 6, 2, 3, 7];</span><br><span class="line">var max = Math.max.apply(null, numbers) // 基本等同于 Math.max(numbers[0], ...) 或 Math.max(5, 6, ..)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用apply来链接构造器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.construct = function(args) &#123;</span><br><span class="line">    var oNew = Object.create(this.prototype);</span><br><span class="line">    &lt;==&gt;</span><br><span class="line">    var oNew = &#123;&#125;;</span><br><span class="line">    oNew.__proto__ = this.prototype;</span><br><span class="line"></span><br><span class="line">    this.apply(oNew, args);</span><br><span class="line">    return oNew;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="跟call的区别"><a href="#跟call的区别" class="headerlink" title="跟call的区别"></a>跟call的区别</h4><p>在给对象参数的情况下，如果参数的形式是数组的时候，比如apply示例里面传递例参数arguments，这个参数是数组类型，并且在调用Person的时候参数的列表是对应一致的（也就是Person和Student的参数列表前两位是一致的）就可以采用apply，如果Person的参数（age, name）,Student参数列表(name,age, grade)就可以用call来实现，通过Person.call(this, age, name, grade);</p>
+<p><strong>apply巧妙的用处可以将一个数组默认的转换为一个参数列表[param1, param2, param3]转换为param1, param2, param3，因为这个特性才有了上述的使用示列</strong></p>
+<p><a href="https://blog.csdn.net/qq_35893120/article/details/78890357" target="_blank" rel="noopener">参考</a></p>
+<h3 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h3><h4 id="原型-prototype"><a href="#原型-prototype" class="headerlink" title="原型(prototype):"></a>原型(prototype):</h4><ul>
+<li>每一个构造函数都拥有一个prototype属性，这个属性指向一个对象，也就是原型对象。当使用构造函数创建实例的时候，prototype属性指向的原型对象就成为实例的原型对象</li>
+<li>每个对象都拥有一个隐藏的属性[[prototype]]，指向它的原型对象，这个属性可以通过Object.getPrototypeOf(obj)或obj. __proto__来访问.</li>
+<li>实际上，构造函数prototype属性与它创建的实例对象的[[prototype]]属性指向的是同一个对象，即对象.__proto__ === 函数.prototype</li>
+<li>原型对象就是用来存放实例中共有的那部分属性</li>
+<li>在JavaScript中，所有的对象都是由他的原型对象继承而来，反之，所有的对象都可以作为原型对象而存在</li>
+<li>访问对象的属性时，javascript会首先在对象自身的属性内查找，若没有找到，则会跳转到该对象的原型对象中查找。</li>
+</ul>
+<p>[[prototype]](等同与js的非标准但许多浏览器实现的属性__proto__)可以通过Object.getPrototypeOf()和Object.setPrototypeOf()来访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let o = new F()</span><br><span class="line">o.[[prototype]].[[prototype]]是Object.prototype,</span><br><span class="line">最后o.[[prototype]].[[prototype]].[[prototype]]是null</span><br></pre></td></tr></table></figure>
+<h4 id="继承方法"><a href="#继承方法" class="headerlink" title="继承方法"></a>继承方法</h4><p>Object.create()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  a: 2,</span><br><span class="line">  m: function()&#123;</span><br><span class="line">    return this.a + 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(o.m()); // 3</span><br><span class="line">// 当调用 o.m 时，&apos;this&apos; 指向了 o.</span><br><span class="line"></span><br><span class="line">var p = Object.create(o);</span><br><span class="line">// p是一个继承自 o 的对象</span><br><span class="line"></span><br><span class="line">p.a = 4; // 创建 p 的自身属性 &apos;a&apos;</span><br><span class="line">console.log(p.m()); // 5</span><br><span class="line">// 调用 p.m 时，&apos;this&apos; 指向了 p</span><br><span class="line">// 又因为 p 继承了 o 的 m 函数</span><br><span class="line">// 所以，此时的 &apos;this.a&apos; 即 p.a，就是 p 的自身属性 &apos;a&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>每个实例对象都有一个私有属性（称之为__proto__）指向它的构造函数的原型对象（prototype）。该原型对象也有一个自己的原型对象(__proto__),层层向上知道一个对象的原型对象为null,null没有原型，并作为原型链中的最后一个环节。</p>
+<p>instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上.</p>
+<h4 id="实际执行"><a href="#实际执行" class="headerlink" title="实际执行"></a>实际执行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var o = new Foo()</span><br><span class="line">js实际执行的是</span><br><span class="line">var o= new Object();</span><br><span class="line">o.__proto__ = Foo.prototype;</span><br><span class="line">Foo.call(o);</span><br></pre></td></tr></table></figure>
+<h3 id="箭头函数的局限性"><a href="#箭头函数的局限性" class="headerlink" title="箭头函数的局限性"></a>箭头函数的局限性</h3><h4 id="箭头函数的机制"><a href="#箭头函数的机制" class="headerlink" title="箭头函数的机制"></a>箭头函数的机制</h4><p>箭头函数里没有this，所以取到的是定义函数时外部环境的this。</p>
+<h4 id="不能使用的场景"><a href="#不能使用的场景" class="headerlink" title="不能使用的场景"></a>不能使用的场景</h4><ol>
+<li>定义对象上的方法</li>
+</ol>
+<ul>
+<li>Object</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const calculate = &#123;</span><br><span class="line">  array: [1,2,3],</span><br><span class="line">  sum: () =&gt; &#123;</span><br><span class="line">    console.log(this === window) // true</span><br><span class="line">    return this.array.reduce((result, item) =&gt; result + item)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">calculate.sum();</span><br><span class="line">当调用calculate对象上的方法sum()时，上下文仍然是window。是因为箭头函数按词法作用域将上下温暖绑定到window对象。</span><br><span class="line"></span><br><span class="line">————————————————————————</span><br><span class="line">const calculate = &#123;</span><br><span class="line">  array: [1,2,3],</span><br><span class="line">  sum: function() &#123;</span><br><span class="line">    console.log(this === calculate) // true</span><br><span class="line">    return this.array.reduce((result, item) =&gt; result + item)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">calculate.sum();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Object prototype</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function MyCat(name) &#123;</span><br><span class="line">  this.catName = name;</span><br><span class="line">&#125;</span><br><span class="line">// 使用箭头函数来定义sayCatName方法，this指向window</span><br><span class="line">MyCat.prototype.sayCatName = () =&gt; &#123;</span><br><span class="line">  console.log(this === window);</span><br><span class="line">  return this.catName;</span><br><span class="line">&#125;</span><br><span class="line">// 正确的方式</span><br><span class="line">MyCat.prototype.sayCatName = function()&#123;</span><br><span class="line">  console.log(this === window);</span><br><span class="line">  return this.catName;</span><br><span class="line">&#125;</span><br><span class="line">const cat = new MyCat(&apos;Mew&apos;);</span><br><span class="line">cat.sayCatName(); // undefined</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">2. 动态上下文的回调函数  </span><br><span class="line">事件监听器附加到DOM元素,在全局上下文中，this指向window，不会指向当前调用元素。</span><br></pre></td></tr></table></figure>
+<p>const button = document.getElementById(‘btn’);<br>button.addEventListener(‘click’, () =&gt; {<br>  console.log(this === window)<br>  this.innerHTML = ‘Clicked button’;<br>})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 调用构造函数  </span><br><span class="line">&gt; 箭头函数不能用作构造函数。Javasxript通过抛出异常隐士阻止这样做。this是来自自封闭上下文的设置，而不是新创建的对象。</span><br></pre></td></tr></table></figure>
+<p>const Message = (text) =&gt; {<br>  this.text = text;<br>}<br>const helloMessage = new Message(‘Hello’); // Throws TypeError<br><code>`</code></p>
+<blockquote>
+<p>正确使用箭头函数时，会使用.bind()或试图捕获上下文的地方变得简单。当需要动态上下文时，不能使用箭头函数： 定义方法，使用构造函数创建对象，在处理事件时从this获取目标。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/15/ES6语法笔记/" rel="next" title="ES6语法笔记">
+                <i class="fa fa-chevron-left"></i> ES6语法笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/07/git常用技巧/" rel="prev" title="git常用技巧">
+                git常用技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KIRIN</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#javascript"><span class="nav-number">1.</span> <span class="nav-text">javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apply"><span class="nav-number">1.1.</span> <span class="nav-text">apply</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跟call的区别"><span class="nav-number">1.1.2.</span> <span class="nav-text">跟call的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型和原型链"><span class="nav-number">1.2.</span> <span class="nav-text">原型和原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型-prototype"><span class="nav-number">1.2.1.</span> <span class="nav-text">原型(prototype):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">继承方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原型链"><span class="nav-number">1.2.3.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实际执行"><span class="nav-number">1.2.4.</span> <span class="nav-text">实际执行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数的局限性"><span class="nav-number">1.3.</span> <span class="nav-text">箭头函数的局限性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#箭头函数的机制"><span class="nav-number">1.3.1.</span> <span class="nav-text">箭头函数的机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不能使用的场景"><span class="nav-number">1.3.2.</span> <span class="nav-text">不能使用的场景</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KIRIN</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript基础,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="javascript原型和原型链 prototypePerson(构造函数) ———prototype———&amp;gt; Person.prototype(实例原型)。  每一个javascript对线（null除外）在创建的时候就会与之关联另一个对像，这个对象就是我们所说的原型。  proto每一个javascript对象(除了null)都具有一个属性，叫proto，这个属性会指向该对象的原型。">
+<meta name="keywords" content="javascript基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript基础面试题">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/js基础常问面试题/index.html">
+<meta property="og:site_name" content="KIRIN&#39;S blog">
+<meta property="og:description" content="javascript原型和原型链 prototypePerson(构造函数) ———prototype———&amp;gt; Person.prototype(实例原型)。  每一个javascript对线（null除外）在创建的时候就会与之关联另一个对像，这个对象就是我们所说的原型。  proto每一个javascript对象(除了null)都具有一个属性，叫proto，这个属性会指向该对象的原型。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2019-9/02-1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/2019-9/02-2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/2019-9/02-3.jpg">
+<meta property="og:updated_time" content="2019-09-10T04:18:59.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript基础面试题">
+<meta name="twitter:description" content="javascript原型和原型链 prototypePerson(构造函数) ———prototype———&amp;gt; Person.prototype(实例原型)。  每一个javascript对线（null除外）在创建的时候就会与之关联另一个对像，这个对象就是我们所说的原型。  proto每一个javascript对象(除了null)都具有一个属性，叫proto，这个属性会指向该对象的原型。">
+<meta name="twitter:image" content="http://yoursite.com/images/2019-9/02-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/15/js基础常问面试题/">
+
+
+
+
+
+  <title>javascript基础面试题 | KIRIN'S blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KIRIN'S blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/js基础常问面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KIRIN">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KIRIN'S blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript基础面试题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-15T09:48:37+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h2><h3 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h3><ul>
+<li>prototype<br>Person(构造函数) ———prototype———&gt; Person.prototype(实例原型)。</li>
+</ul>
+<p>每一个javascript对线（null除外）在创建的时候就会与之关联另一个对像，这个对象就是我们所说的原型。</p>
+<ul>
+<li><p><strong>proto</strong><br>每一个javascript对象(除了null)都具有一个属性，叫<strong>proto</strong>，这个属性会指向该对象的原型。<br><img src="/images/2019-9/02-1.jpg" alt="图一"></p>
+</li>
+<li><p>constructor</p>
+</li>
+</ul>
+<p>每个原型都有一个constructor属性指向关联的构造函数。<img src="/images/2019-9/02-2.jpg" alt="图二"></p>
+<ul>
+<li>原型链  <blockquote>
+<p>Object.getPrototypeOf(obj)或者被弃用的<strong>proto</strong>属性获取对象的原型</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>Object.prototype.<strong>proto</strong>的值为null<br><img src="/images/2019-9/02-3.jpg" alt="图三"></li>
+</ol>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">参考链接</a></p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>javascript采用的是词法作用域也就是静态作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar();</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>假设javascript采用静态作用域：执行foo函数，先从foo函数内部查找局部变量value。如果没有，就<strong>根据书写的位置（函数调用的位置）</strong>查找上一层的代码，也就是value等于1，所以打印1</li>
+<li>假设JavaScript采用动态作用域: 执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</li>
+</ul>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="函数创建"><a href="#函数创建" class="headerlink" title="函数创建"></a>函数创建</h4><p>函数的作用域在函数定义的时候决定了，因为函数有一个内部属性[[scope]],当函数创建的时候，就会保存所有父变量对象到其中，可以理解[[scope]]就是所有父变量对象的层级链。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>MDN定义: 闭包是指那些能够访问自由变量的函数。因此，闭包= 函数 + 函数能够访问的自由变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var foo = checkscope();</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>执行过程:</p>
+<ol>
+<li>进入全局代码，创建全局执行上下文，全局执行上下文压入执行上下文栈</li>
+<li>全局执行上下文初始化</li>
+<li>执行 checkscope 函数，创建 checkscope 函数执行上下文， checkscope 执行上下文被压入执行上下文栈</li>
+<li>checkscope 执行上下文初始化，创建变量对象、作用域链、this等</li>
+<li>checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出</li>
+<li>执行 f 函数，创建 f 函数执行上下文，f 执行上下文被压入执行上下文栈</li>
+<li>f 执行上下文初始化，创建变量对象、作用域链、this等</li>
+<li>f 函数执行完毕，f 函数上下文从执行上下文栈中弹出</li>
+</ol>
+<p>当f函数执行完毕的时候，checkscope 函数上下文已经被销毁了啊(即从执行上下文栈中被弹出)，之所以能够读取到值正是因为作用域链的存在。<code>fContext = {
+    Scope: [AO, checkscopeContext.AO, globalContext.VO],
+}</code>.f函数依然可以通过f函数的作用域链访问到它，因而实现了闭包的概念。</p>
+<p>实践角度阐释闭包： </p>
+<ul>
+<li>即使创建它的上下文已经销毁，它仍然存在（比如，内部函数从父函数中返回）</li>
+<li>在代码中引用了自由变量</li>
+</ul>
+<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><ul>
+<li><p>按值传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line">function foo(o) &#123;</span><br><span class="line">    o = 2;</span><br><span class="line">    console.log(o); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line">console.log(obj.value) // 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>共享传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">第一种情况：</span><br><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line">function foo(o) &#123;</span><br><span class="line">    o.value = 2;</span><br><span class="line">    console.log(o.value); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line">console.log(obj.value) // 2</span><br><span class="line"></span><br><span class="line">第二种情况：</span><br><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line">function foo(o) &#123;</span><br><span class="line">    o = 2;</span><br><span class="line">    console.log(o); //2</span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line">console.log(obj.value) // 1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>共享传递是传递对象的引用的副本！所以修改o.value可以通过引用找到原址，但是直接修改o，并不会修改原值。</p>
+<h3 id="call和apply，bind"><a href="#call和apply，bind" class="headerlink" title="call和apply，bind"></a>call和apply，bind</h3><h4 id="call"><a href="#call" class="headerlink" title="call"></a>call</h4><p>call()方法在使用一个指定的this值和若干个指定的参数值的前提下调用某个函数或方法。<br>call参数传null的时候，视为指向window.<br>call代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.call = function(context) &#123;</span><br><span class="line">  var context = context || window;</span><br><span class="line">  // 首先要获取调用call的函数，用this可以获取</span><br><span class="line">  context.fn = this;</span><br><span class="line">  var args = [];</span><br><span class="line">  for(var i = 1, len = arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">    ars.push(&apos;arguments[&apos; + i + &apos;]&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">  var result = eval(&apos;context.fn(&apos; + args + &apos;)&apos;);</span><br><span class="line">  delete context.fn</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>apply代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.apply = function(context, arr) &#123;</span><br><span class="line">  var context = Object(context) || window;</span><br><span class="line">  context.fn = this;</span><br><span class="line">  var result;</span><br><span class="line">  if (!arr) &#123;</span><br><span class="line">    result = context.fn();</span><br><span class="line">  &#125; esle &#123;</span><br><span class="line">    var args = [];</span><br><span class="line">    for (var i = 0, len = arr.length;i &lt; len; i++) &#123;</span><br><span class="line">      ars.push(&apos;arr[&apos; + i + &apos;]&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">    result = eval(&apos;context.fn(&apos; + args + &apos;)&apos;)</span><br><span class="line">    delete context.fn</span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/11" target="_blank" rel="noopener">参考</a></p>
+<h4 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h4><p>bind方法会创建一个新函数，当这个新函数被调用时，bind的第一个参数将作为运行时的this，之后的一序列参数将会在传递的实参前传入作为它的参数。</p>
+<p>特点：</p>
+<ul>
+<li>返回一个函数</li>
+<li>可以传入参数</li>
+</ul>
+<h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>…arguments可以将类数组转换为数组</p>
+<h3 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h3><p>惰性函数就是解决每次都要进行判断的问题，解决原理很简单就是重写函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">var foo = function() &#123;</span><br><span class="line">  var t = new Date();</span><br><span class="line">  foo = function() &#123;</span><br><span class="line">    return t;</span><br><span class="line">  &#125;;</span><br><span class="line">  return foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 简化写法</span><br><span class="line">function addEvent (type, el, fn) &#123;</span><br><span class="line">    if (window.addEventListener) &#123;</span><br><span class="line">        el.addEventListener(type, fn, false);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(window.attachEvent)&#123;</span><br><span class="line">        el.attachEvent(&apos;on&apos; + type, fn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var addEvent = (function()&#123;</span><br><span class="line">    if (window.addEventListener) &#123;</span><br><span class="line">        return function (type, el, fn) &#123;</span><br><span class="line">            el.addEventListener(type, fn, false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(window.attachEvent)&#123;</span><br><span class="line">        return function (type, el, fn) &#123;</span><br><span class="line">            el.attachEvent(&apos;on&apos; + type, fn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>当我们每次都需要进行条件判断，其实只需要判断一次，接下来的使用方式都不会放生改变的时候，可以考虑使用惰性函数。</p>
+<h3 id="箭头函数与普通函数的比较"><a href="#箭头函数与普通函数的比较" class="headerlink" title="箭头函数与普通函数的比较"></a>箭头函数与普通函数的比较</h3><ul>
+<li>没有this<br>箭头函数没有this,所以需要通过查找作用域链来确定this的值。意味着如果箭头函数被非箭头函数包含，this绑定的就是最近一层非箭头函数的this。</li>
+<li>没有arguments<br>箭头函数没有自己的arguments对象，但是箭头函数可以访问外围函数的arguments对象。</li>
+<li>不能通过new关键字调用<br>javascript函数有两个内部方法：[[Call]]和[[Construct]]。当通过new调用函数时，执行[[Construct]]方法，创建一个实例对象，然后再执行函数体，将this绑定到实例上。当直接调用的时候，执行[[Call]]方法，直接执行函数体。箭头函数并没有[[Construct]]方法，不能被用作构造函数，如果通过new的方式调用，会报错。</li>
+<li>没有new.target<br>因为不能使用new调用，所以也没有new.target值</li>
+<li>没有原型<br>由于不能使用new调用箭头函数，也就没有构建原型的需求，于是箭头函数也不存在prototype这个属性。</li>
+<li>没有super<br>没有原型，自然也不能通过super来访问原型的属性，箭头函数时没有super的，不过跟this、arguments、new.target一样，这些值由外围最近一层非箭头函数决定。</li>
+</ul>
+<h3 id="proxy的使用"><a href="#proxy的使用" class="headerlink" title="proxy的使用"></a>proxy的使用</h3><ul>
+<li><p>defineProperty</p>
+<blockquote>
+<p>Object.defineProperty(obj, prop, descriptor)<br>obj: 要在其上定义属性的对象<br>prop: 要定义或修改的属性的名称<br>descriptor: 要将定义或修改的属性的描述符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">watch(obj, &quot;value&quot;, function(newvalue)&#123;</span><br><span class="line">    document.getElementById(&apos;container&apos;).innerHTML = newvalue;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">document.getElementById(&apos;button&apos;).addEventListener(&quot;click&quot;, function()&#123;</span><br><span class="line">    obj.value += 1</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">(function()&#123;</span><br><span class="line">    var root = this;</span><br><span class="line">    function watch(obj, name, func)&#123;</span><br><span class="line">        var value = obj[name];</span><br><span class="line"></span><br><span class="line">        Object.defineProperty(obj, name, &#123;</span><br><span class="line">            get: function() &#123;</span><br><span class="line">                return value;</span><br><span class="line">            &#125;,</span><br><span class="line">            set: function(newValue) &#123;</span><br><span class="line">                value = newValue;</span><br><span class="line">                func(value)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        if (value) obj[name] = value</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.watch = watch;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>proxy<br>使用defineProperty只能重定义属性的读取get和set行为，ES6提供了Proxy，可以重定义更多的行为，比如in、delete、函数调用等更多行为。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">    var root = this;</span><br><span class="line"></span><br><span class="line">    function watch(target, func) &#123;</span><br><span class="line"></span><br><span class="line">        var proxy = new Proxy(target, &#123;</span><br><span class="line">            get: function(target, prop) &#123;</span><br><span class="line">                return target[prop];</span><br><span class="line">            &#125;,</span><br><span class="line">            set: function(target, prop, value) &#123;</span><br><span class="line">                target[prop] = value;</span><br><span class="line">                func(prop, value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        return proxy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.watch = watch;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var newObj = watch(obj, function(key, newvalue) &#123;</span><br><span class="line">    if (key == &apos;value&apos;) document.getElementById(&apos;container&apos;).innerHTML = newvalue;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">document.getElementById(&apos;button&apos;).addEventListener(&quot;click&quot;, function() &#123;</span><br><span class="line">    newObj.value += 1</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用defineProperty和proxy的区别，当使用defineProperty时，我们修改原来的obj对象可以触发拦截，而使用proxy就必须修改代理对象，即proxy的实例才可以触发拦截。</p>
+<h3 id="ES6私有变量的实现"><a href="#ES6私有变量的实现" class="headerlink" title="ES6私有变量的实现"></a>ES6私有变量的实现</h3><h4 id="约定"><a href="#约定" class="headerlink" title="约定"></a>约定</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Example &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this._private = &apos;private&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">  getName() &#123;</span><br><span class="line">    return this._private</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var ex = new Example();</span><br><span class="line">console.log(ex.getName()); // private</span><br><span class="line">console.log(ex._private) // private</span><br></pre></td></tr></table></figure>
+<p>缺点： </p>
+<ol>
+<li>外部可以访问和修改</li>
+<li>语言没有配合的机制，如for in语句会将所有属性枚举出来<br>优点： </li>
+<li>写法简单</li>
+<li>调试方便</li>
+<li>兼容性好</li>
+</ol>
+<h4 id="闭包-1"><a href="#闭包-1" class="headerlink" title="闭包"></a>闭包</h4><p>实现一</p>
+<blockquote>
+<p>constructor方法是类的构造函数，通过new命令创建实例对象时，自动调用该方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Example &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    var _private = &apos;&apos;;</span><br><span class="line">    _private = &apos;private&apos;;</span><br><span class="line">    this.getName = function() &#123; return _private &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var ex = new Example();</span><br><span class="line">console.log(ex.getName()); // private</span><br><span class="line">console.log(ex._private) // undefined</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>缺点：</p>
+<ol>
+<li>constructor的逻辑变得复杂。构造函数应该只做对象初始化的事情，现在为了实现私有变量，必须包含部分方法的实现，代码组织上略不清晰。</li>
+<li>方法存在与实例，而非原型上，子类无法使用super调用。</li>
+<li>构建增加一点开销<br>优点： </li>
+<li>无命名冲突</li>
+<li>外部无法访问和修改</li>
+</ol>
+<p>实现二<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const Example = (function() &#123;</span><br><span class="line">  var _private = &apos;&apos;;</span><br><span class="line">  class Example &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">      _private = &apos;private&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    getName() &#123;</span><br><span class="line">      return _private;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return Example;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">var ex = new Example();</span><br><span class="line">console.log(ex.getName()); // private</span><br><span class="line">console.log(ex._private) // undefined</span><br></pre></td></tr></table></figure></p>
+<p>缺点： </p>
+<ol>
+<li>写法有点复杂</li>
+<li>构建增加一点开销<br>优点：</li>
+<li>无命名冲突</li>
+<li>外部无法访问和修改</li>
+</ol>
+<h4 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const Example = (function() &#123;</span><br><span class="line">  vat _private = Symbol(&apos;private&apos;);</span><br><span class="line">  class Example &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">      this[_private] = &apos;private&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    getName() &#123;</span><br><span class="line">          return this[_private];</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return Example;</span><br><span class="line">&#125;)()</span><br><span class="line">var ex = new Example();</span><br><span class="line"></span><br><span class="line">console.log(ex.getName()); // private</span><br><span class="line">console.log(ex.name); // undefined</span><br></pre></td></tr></table></figure>
+<p>优点:  </p>
+<ol>
+<li>无命名冲突</li>
+<li>外部无法访问和修改</li>
+<li>无性能损失</li>
+</ol>
+<p>缺点:  </p>
+<ol>
+<li>写法稍微复杂</li>
+<li>兼容性也还好</li>
+</ol>
+<h4 id="weakMap"><a href="#weakMap" class="headerlink" title="weakMap"></a>weakMap</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const Example = (function() &#123;</span><br><span class="line">  var _private = new WeakMap(); // 私有成员存储容器</span><br><span class="line"></span><br><span class="line">  class Example &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">      _private.set(this, &apos;private&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    getName() &#123;</span><br><span class="line">    	return _private.get(this);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return Example;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">var ex = new Example();</span><br><span class="line"></span><br><span class="line">console.log(ex.getName()); // private</span><br><span class="line">console.log(ex.name); // undefined</span><br></pre></td></tr></table></figure>
+<p>优点: </p>
+<ol>
+<li>无命名冲突</li>
+<li>外部无法访问和修改<br>缺点:  </li>
+<li>写法比较麻烦</li>
+<li>兼容性有点问题</li>
+<li>有一定性能代价</li>
+</ol>
+<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  #x;</span><br><span class="line">  #y;</span><br><span class="line"></span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this.#x = x;</span><br><span class="line">    this.#y = y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  equals(point) &#123;</span><br><span class="line">    return this.#x === point.#x &amp;&amp; this.#y === point.#y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Foo &#123;</span><br><span class="line">  private value;</span><br><span class="line"></span><br><span class="line">  equals(foo) &#123;</span><br><span class="line">    return this.value === foo.value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>类的成员函数中可以访问同类型实例的私有变量</strong></p>
+<h3 id="es6-class中的constructor方法和super的作用"><a href="#es6-class中的constructor方法和super的作用" class="headerlink" title="es6 class中的constructor方法和super的作用"></a>es6 class中的constructor方法和super的作用</h3><h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function Point(x, y) &#123;</span><br><span class="line">  this.x = x;</span><br><span class="line">  this.y = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Point.prototype.toString = function() &#123;</span><br><span class="line">  return &apos;(&apos; + this.x + &apos;,&apos; + this.y + &apos;)&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价与</span><br><span class="line"></span><br><span class="line">class Point &#123;</span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    return &apos;(&apos; + this.x + &apos;,&apos; + this.y + &apos;)&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>constructor方法是类的构造函数，是一个默认方法，通过new命令创建对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显示定义，会自动添加构造函数，返回实例对象this。</p>
+<h4 id="super"><a href="#super" class="headerlink" title="super"></a>super</h4><ol>
+<li>当作函数使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();  // ES6 要求，子类的构造函数必须执行一次 super 函数，否则会报错。</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>在constructor中必须调用super方法，因为子类没有自己的this对象，而是继承父类的this对象，而super就代表类父类的构造函数。super虽然代表类父类A的构造函数，但是返回的是子类B的实例，即super内部的this指的是B，因此super在这里相当于<code>A.prototype.constructor.call(this,props)</code></p>
+</blockquote>
+<ol start="2">
+<li>当作对象使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  c() &#123;</span><br><span class="line">    return 2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    console.log(super.c()); // 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let b = new B();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>子类B当中的super.c()就是将super当作一个对象使用，这时，super在普通方法中，指向A.prototype，所以super.c()相当于A.prototype.c()。<br><strong>通过super调用父类的方法时，super会绑定子类的this</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript基础/" rel="tag"># javascript基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/15/不了解的javascript基础/" rel="next" title="不了解的javascript基础">
+                <i class="fa fa-chevron-left"></i> 不了解的javascript基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KIRIN</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#javascript"><span class="nav-number">1.</span> <span class="nav-text">javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型和原型链"><span class="nav-number">1.1.</span> <span class="nav-text">原型和原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">1.2.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文"><span class="nav-number">1.3.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数创建"><span class="nav-number">1.3.1.</span> <span class="nav-text">函数创建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">1.4.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数传递"><span class="nav-number">1.5.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call和apply，bind"><span class="nav-number">1.6.</span> <span class="nav-text">call和apply，bind</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call"><span class="nav-number">1.6.1.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind"><span class="nav-number">1.6.2.</span> <span class="nav-text">bind</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arguments"><span class="nav-number">1.7.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#惰性函数"><span class="nav-number">1.8.</span> <span class="nav-text">惰性函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数与普通函数的比较"><span class="nav-number">1.9.</span> <span class="nav-text">箭头函数与普通函数的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy的使用"><span class="nav-number">1.10.</span> <span class="nav-text">proxy的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6私有变量的实现"><span class="nav-number">1.11.</span> <span class="nav-text">ES6私有变量的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#约定"><span class="nav-number">1.11.1.</span> <span class="nav-text">约定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包-1"><span class="nav-number">1.11.2.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol"><span class="nav-number">1.11.3.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#weakMap"><span class="nav-number">1.11.4.</span> <span class="nav-text">weakMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#private"><span class="nav-number">1.11.5.</span> <span class="nav-text">private</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#es6-class中的constructor方法和super的作用"><span class="nav-number">1.12.</span> <span class="nav-text">es6 class中的constructor方法和super的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">1.12.1.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super"><span class="nav-number">1.12.2.</span> <span class="nav-text">super</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KIRIN</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
