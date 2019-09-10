@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="KIRIN&#39;S blog">
 <meta property="og:description" content="React虚拟DOMreact将真实DOM抽象为虚拟DOM，然后通过新旧虚拟DOM这两个对象的差异(Diff算法)，最终将变化的部分重新渲染，提高效率。虚拟dom算法：1.用javascript对象表示DOM树的结构，然后用这个树构建一个真正的DOM树，插到文档中。2.当状态变更的时候，重新构造一颗新的对象树，然后用对比新旧树，记录差异。3.把记录的差异用到步骤1构建的真实DOM树，更新视图一句话">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2019-5/23.png">
 <meta property="og:image" content="http://yoursite.com/images/2019-3/2019-03-20.jpg">
-<meta property="og:image" content="http://yoursite.com/images/2019-3/2019-03-20.jpg">
-<meta property="og:updated_time" content="2019-06-17T01:21:54.591Z">
+<meta property="og:updated_time" content="2019-07-15T01:05:11.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基础知识总结">
 <meta name="twitter:description" content="React虚拟DOMreact将真实DOM抽象为虚拟DOM，然后通过新旧虚拟DOM这两个对象的差异(Diff算法)，最终将变化的部分重新渲染，提高效率。虚拟dom算法：1.用javascript对象表示DOM树的结构，然后用这个树构建一个真正的DOM树，插到文档中。2.当状态变更的时候，重新构造一颗新的对象树，然后用对比新旧树，记录差异。3.把记录的差异用到步骤1构建的真实DOM树，更新视图一句话">
-<meta name="twitter:image" content="http://yoursite.com/images/2019-3/2019-03-20.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/2019-5/23.png">
 
 
 
@@ -308,7 +308,7 @@
 <li>通过添加addEventLister来同步更新state</li>
 <li>通过setTimeOut来同步更新state<br>原理： 在React的setState函数实现中，会根据一个变量isBatchingUpdates判断是直接更新this.state还是放到队列中回头再说，而isBatchingUpdates默认是false，也就表示setState会同步更新this.state，但是，有一个函数batchedUpdates，这个函数会把isBatchingUpdates修改为true，而当React在调用事件处理函数之前就会调用这个batchedUpdates，造成的后果，就是由React控制的事件处理过程setState不会同步更新this.state。<br><a href="https://zhuanlan.zhihu.com/p/26069727" target="_blank" rel="noopener">react同步更新state</a></li>
 </ul>
-<h3 id="React生命周期"><a href="#React生命周期" class="headerlink" title="React生命周期"></a>React生命周期</h3><p><img src="/images/2019-3/2019-03-20.jpg" alt="周期运行图片">  </p>
+<h3 id="React生命周期"><a href="#React生命周期" class="headerlink" title="React生命周期"></a>React生命周期</h3><p><img src="/images/2019-5/23.png" alt="周期运行图片">  </p>
 <h4 id="初始化阶段"><a href="#初始化阶段" class="headerlink" title="初始化阶段"></a>初始化阶段</h4><ul>
 <li><p>设置组件的默认属性</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static defaultProps = &#123;</span><br><span class="line">  name: &apos;kk&apos;,</span><br><span class="line">  age: 18,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -369,9 +369,9 @@
 <li><p>SFC(Stateless Functional Component)<br>React可以使用Function来创建Component，这类Component没有lifecycle，内部不维护state，只要传入的props有变化则进行重新渲染。</p>
 </li>
 <li><p>HOC(Higher-Order Components)<br>高阶组件就是一个方法，传入一个组件返回另一个组件。最常见的是react-redux里的connect方法，通过传入组件和map*ToProps方法，让组件和store连接。组件内部就可以直接通过props获得connect之后的值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export default connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps,</span><br><span class="line">)(Component);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p><strong>高阶组件不要在render中使用另外一个HOC</strong>，会严重影响性能问题（重新挂载组件会导致该组件及其所有子组件的状态丢失。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export default connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps,</span><br><span class="line">)(Component);</span><br></pre></td></tr></table></figure></p>
 <p>高阶组件适合用来扩展功能，把这部分功能从业务组件中抽离出来，需要的套上，不需要的时候移除，对被包裹组件侵入性非常小</p>
 <ul>
 <li><p>Dynamic Component<br>在执行时才能确定具体的标签或者组件是什么</p>
@@ -904,7 +904,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -917,7 +917,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
