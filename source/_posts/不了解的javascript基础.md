@@ -1,3 +1,10 @@
+<!--
+ * @ [moduleName] - [description]
+ * @Author: fengqilin <qilin.feng@hand-china.com>
+ * @Date: 2019-08-15 17:54:33
+ * @LastEditTime: 2019-08-15 17:54:33
+ * @Copyright: Copyright (c) 2018, Hand
+ -->
 ---
 title: 不了解的javascript基础
 date: 2019-08-15 09:48:37
@@ -12,6 +19,7 @@ tags: javascript基础
 表明当前文档的渲染模式是混杂模式还是标准模式。
 - 混杂模式：BackCompat
 - 标准模式：CSS1Compat
+
 ### HTMLElement
 #### offsetTop
 
