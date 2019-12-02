@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="nginx,">
+  <meta name="keywords" content="javascript基础,">
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="nginxnginx cookie丢失问题系统通过域名解析经过阿里云的SLB解析进入内网通过nginx的转发到后端各服务，因为后端服务是标准的oauth2.0,请求过程中需要验证是否存在cookie，没有登录则重定向到登录页面，通过nginx的proxy_pass代理到后端服务时，发现cookie丢失，每次登录完之后又循环重定向到登录页面。通过配置proxy_cookie_path属性，同时登录成">
-<meta name="keywords" content="nginx">
+<meta name="description" content="javascriptdocumentcompatMode表明当前文档的渲染模式是混杂模式还是标准模式。  混杂模式：BackCompat 标准模式：CSS1CompatHTMLElementoffsetTop  返回当前元素相对与其offsetParent元素的顶部的距离 offsetParent返回一个指向最近的包含该元素的定位元素。如果没有定位元素，则offsetParent为最近的table">
+<meta name="keywords" content="javascript基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nginx项目使用总结">
-<meta property="og:url" content="http://yoursite.com/2019/07/03/nginx项目实战小结/index.html">
+<meta property="og:title" content="不了解的javascript基础">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/不了解的javascript基础/index.html">
 <meta property="og:site_name" content="KIRIN&#39;S blog">
-<meta property="og:description" content="nginxnginx cookie丢失问题系统通过域名解析经过阿里云的SLB解析进入内网通过nginx的转发到后端各服务，因为后端服务是标准的oauth2.0,请求过程中需要验证是否存在cookie，没有登录则重定向到登录页面，通过nginx的proxy_pass代理到后端服务时，发现cookie丢失，每次登录完之后又循环重定向到登录页面。通过配置proxy_cookie_path属性，同时登录成">
+<meta property="og:description" content="javascriptdocumentcompatMode表明当前文档的渲染模式是混杂模式还是标准模式。  混杂模式：BackCompat 标准模式：CSS1CompatHTMLElementoffsetTop  返回当前元素相对与其offsetParent元素的顶部的距离 offsetParent返回一个指向最近的包含该元素的定位元素。如果没有定位元素，则offsetParent为最近的table">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/2019-7/2019-07-03.jpg">
-<meta property="og:image" content="http://yoursite.com/images/2019-7/2019-07-03.1.jpg">
-<meta property="og:updated_time" content="2019-07-03T03:30:14.943Z">
+<meta property="og:updated_time" content="2019-09-02T08:06:15.522Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nginx项目使用总结">
-<meta name="twitter:description" content="nginxnginx cookie丢失问题系统通过域名解析经过阿里云的SLB解析进入内网通过nginx的转发到后端各服务，因为后端服务是标准的oauth2.0,请求过程中需要验证是否存在cookie，没有登录则重定向到登录页面，通过nginx的proxy_pass代理到后端服务时，发现cookie丢失，每次登录完之后又循环重定向到登录页面。通过配置proxy_cookie_path属性，同时登录成">
-<meta name="twitter:image" content="http://yoursite.com/images/2019-7/2019-07-03.jpg">
+<meta name="twitter:title" content="不了解的javascript基础">
+<meta name="twitter:description" content="javascriptdocumentcompatMode表明当前文档的渲染模式是混杂模式还是标准模式。  混杂模式：BackCompat 标准模式：CSS1CompatHTMLElementoffsetTop  返回当前元素相对与其offsetParent元素的顶部的距离 offsetParent返回一个指向最近的包含该元素的定位元素。如果没有定位元素，则offsetParent为最近的table">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/03/nginx项目实战小结/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/15/不了解的javascript基础/">
 
 
 
 
 
-  <title>nginx项目使用总结 | KIRIN'S blog</title>
+  <title>不了解的javascript基础 | KIRIN'S blog</title>
   
 
 
@@ -236,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/03/nginx项目实战小结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/不了解的javascript基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="KIRIN">
@@ -253,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">nginx项目使用总结</h1>
+          <h1 class="post-title" itemprop="name headline">不了解的javascript基础</h1>
         
 
         <div class="post-meta">
@@ -265,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-03T09:48:09+08:00">
-                2019-07-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-15T09:48:37+08:00">
+                2019-08-15
               </time>
             
 
@@ -303,10 +300,15 @@
       
 
       
-        <h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><h4 id="nginx-cookie丢失问题"><a href="#nginx-cookie丢失问题" class="headerlink" title="nginx cookie丢失问题"></a>nginx cookie丢失问题</h4><p>系统通过域名解析经过阿里云的SLB解析进入内网通过nginx的转发到后端各服务，因为后端服务是标准的oauth2.0,请求过程中需要验证是否存在cookie，没有登录则重定向到登录页面，通过nginx的proxy_pass代理到后端服务时，发现cookie丢失，每次登录完之后又循环重定向到登录页面。通过配置proxy_cookie_path属性，同时登录成功后刷新页面会导致404，需要配置<em>try_files $uri /index.html</em> ，（此属性的作用按顺序检查文件是否存在，返回第一个找到的文件或文件夹(结尾加斜线表示为文件夹)，如果所有的文件或文件夹都找不到，会进行一个内部重定向到最后一个参数）。<br><img src="/images/2019-7/2019-07-03.jpg" alt="nginx系统架构图"><br><a href="https://blog.csdn.net/we_shell/article/details/45153885" target="_blank" rel="noopener">参考文档</a></p>
-<h4 id="nginx-websocket代理"><a href="#nginx-websocket代理" class="headerlink" title="nginx websocket代理"></a>nginx websocket代理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">proxy_set_header Connection $connection_upgrade;</span><br><span class="line">这里的关键部分在于HTTP请求中多了如下头部：</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br></pre></td></tr></table></figure>
-<p><img src="/images/2019-7/2019-07-03.1.jpg" alt="nginx最终配置图"><br><a href="https://www.xncoding.com/2018/03/12/fullstack/nginx-websocket.html" target="_blank" rel="noopener">参考文档1</a><br><a href="https://www.hi-linux.com/posts/42176.html" target="_blank" rel="noopener">参考文档2</a></p>
-
+        <h2 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h2><h3 id="document"><a href="#document" class="headerlink" title="document"></a>document</h3><h4 id="compatMode"><a href="#compatMode" class="headerlink" title="compatMode"></a>compatMode</h4><p>表明当前文档的渲染模式是混杂模式还是标准模式。</p>
+<ul>
+<li>混杂模式：BackCompat</li>
+<li>标准模式：CSS1Compat<h3 id="HTMLElement"><a href="#HTMLElement" class="headerlink" title="HTMLElement"></a>HTMLElement</h3><h4 id="offsetTop"><a href="#offsetTop" class="headerlink" title="offsetTop"></a>offsetTop</h4></li>
+</ul>
+<p>返回当前元素相对与其offsetParent元素的顶部的距离</p>
+<h4 id="offsetParent"><a href="#offsetParent" class="headerlink" title="offsetParent"></a>offsetParent</h4><p>返回一个指向最近的包含该元素的定位元素。如果没有定位元素，则offsetParent为最近的table，table cell或根元素。当元素的style.display设置为“none”时，offsetParent返回null。</p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="flex属性"><a href="#flex属性" class="headerlink" title="flex属性"></a>flex属性</h3><p>规定了弹性元素如何伸长或缩短以适应flex容器中的可用空间，用来设置flex-grow，flex-shrink，flex-basis；</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2>
       
     </div>
     
@@ -323,7 +325,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nginx/" rel="tag"># nginx</a>
+            <a href="/tags/javascript基础/" rel="tag"># javascript基础</a>
           
         </div>
       
@@ -336,8 +338,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/04/javascript设计模式/" rel="next" title="javascript设计模式">
-                <i class="fa fa-chevron-left"></i> javascript设计模式
+              <a href="/2019/08/07/git常用技巧/" rel="next" title="git常用技巧">
+                <i class="fa fa-chevron-left"></i> git常用技巧
               </a>
             
           </div>
@@ -346,8 +348,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/15/ES6语法笔记/" rel="prev" title="ES6语法笔记">
-                ES6语法笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/15/js基础常问面试题/" rel="prev" title="javascript基础面试题">
+                javascript基础面试题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -471,7 +473,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">1.</span> <span class="nav-text">nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-cookie丢失问题"><span class="nav-number">1.1.</span> <span class="nav-text">nginx cookie丢失问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-websocket代理"><span class="nav-number">1.2.</span> <span class="nav-text">nginx websocket代理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#javascript"><span class="nav-number">1.</span> <span class="nav-text">javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#document"><span class="nav-number">1.1.</span> <span class="nav-text">document</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compatMode"><span class="nav-number">1.1.1.</span> <span class="nav-text">compatMode</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTMLElement"><span class="nav-number">1.2.</span> <span class="nav-text">HTMLElement</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#offsetTop"><span class="nav-number">1.2.1.</span> <span class="nav-text">offsetTop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#offsetParent"><span class="nav-number">1.2.2.</span> <span class="nav-text">offsetParent</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">2.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flex属性"><span class="nav-number">2.1.</span> <span class="nav-text">flex属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">3.</span> <span class="nav-text">正则表达式</span></a></li></ol></div>
             
 
           </div>
